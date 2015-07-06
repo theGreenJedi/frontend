@@ -8,6 +8,7 @@ define([
     'bootstraps/common',
     'bootstraps/media',
     'bootstraps/sport',
+    'bootstraps/locale',
     'common/modules/experiments/tests/save-for-later'
 ], function (
     qwery,
