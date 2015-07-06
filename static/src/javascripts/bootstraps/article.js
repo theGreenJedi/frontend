@@ -15,7 +15,8 @@ define([
     'common/modules/onward/geo-most-popular',
     'common/modules/onward/social-most-popular',
     'bootstraps/article-liveblog-common',
-    'bootstraps/trail'
+    'bootstraps/trail',
+    'common/modules/locale/locale'
 ], function (
     qwery,
     bean,
@@ -32,7 +33,8 @@ define([
     geoMostPopular,
     SocialMostPopular,
     articleLiveblogCommon,
-    trail
+    trail,
+    locale
 ) {
     var modules = {
             initCmpParam: function () {
@@ -108,6 +110,7 @@ define([
             membershipEvents.upgradeEvents();
             openModule.init();
             mediator.emit('page:article:ready');
+            locale.default();
         };
 
     return {

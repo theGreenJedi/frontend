@@ -85,6 +85,7 @@
       "fence": "github:guardian/fence@~0.2.11",
       "jasmine-sinon": "bower:jasmine-sinon@0.4.0",
       "lodash": "npm:lodash@~2.4.1",
+      "money": "github:openexchangerates/money.js@^0.1.3",
       "qwery": "npm:qwery@^3.4.2",
       "raven": "github:getsentry/raven-js@~1.1.16",
       "react": "npm:react@^0.13.2",

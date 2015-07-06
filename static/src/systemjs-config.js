@@ -51,6 +51,7 @@ System.config({
     "fence": "github:guardian/fence@0.2.11",
     "jasmine-sinon": "bower:jasmine-sinon@0.4.0",
     "lodash": "npm:lodash@2.4.1",
+    "money": "github:openexchangerates/money.js@0.1.3",
     "omniture": "vendor/omniture",
     "picturefill": "common/utils/picturefill",
     "qwery": "npm:qwery@3.4.2",
