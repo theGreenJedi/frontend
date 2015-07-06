@@ -1,4 +1,3 @@
-import $ from 'common/utils/$';
 import _ from 'lodash';
 import fx from 'money';
 import ajaxPromise from 'common/utils/ajax-promise';
@@ -19,7 +18,7 @@ const locales = {
     }
 };
 
-var currentLocale = 'en-us';
+let currentLocale = 'en-us';
 let exchange = null;
 
 function getRates() {
@@ -39,33 +38,30 @@ function getRates() {
 }
 
 
-function localise(element) {
-    var type = element.getAttribute('data-localise');
-    var unit = element.getAttribute('data-unit');
-    var value = element.getAttribute('data-value');
+function localise($element) {
+    var type = $element.attr('data-localise');
+    var unit = $element.attr('data-unit');
+    var value = $element.attr('data-value');
 
     switch (type) {
         case 'currency':
             getRates().then(function(fx) {
-                return new Currency(unit, value);
+                appendConversion(fx.convert(value, {
+                    from: unit,
+                    to: locales[currentLocale].currency
+                }));
             })
         case 'distance':
             return new Distance(unit, value);
         case 'weight':
             return new Weight(unit, value);
+        default:
+            appendConversion('bollocks', $element)
     }
 }
 
-function Currency(currency, value) {
-    this.currency = currency;
-    this.value = value;
-}
-
-Currency.prototype.convert = function() {
-    return fx.convert(this.value, {
-        from: this.currency,
-        to: locales[currentLocale].currency
-    });
+function appendConversion (s, $element) {
+    return $element.after(` (${s})`);
 }
 
 

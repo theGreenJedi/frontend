@@ -1,6 +1,6 @@
+import $ from 'common/utils/$';
 import localise from './localise';
 
 export default function() {
-    localise()
-
+    $('p').map((el) => localise($(el)))
 };
