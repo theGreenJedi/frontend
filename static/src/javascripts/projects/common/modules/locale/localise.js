@@ -22,21 +22,23 @@ let currentLocale = 'en-us';
 let exchange = null;
 
 function getRates() {
-    return new Promise(function(resolve) {
-        if(!_.isEmpty(fx.rates)) return resolve(fx);
-        ajaxPromise({
-            url: `//openexchangerates.org/api/latest.json?app_id=${key}`,
-            type: 'json',
-            method: 'get',
-            crossOrigin: true
-        }).then(function(data) {
-            fx.rates = data.rates;
-            fx.base = data.base;
-            return resolve(fx);
-        })
+    return new Promise((resolve) => {
+        if(_.isEmpty(fx.rates)) {
+            ajaxPromise({
+                url: `//openexchangerates.org/api/latest.json?app_id=${key}`,
+                type: 'json',
+                method: 'get',
+                crossOrigin: true
+            }).then((data) => {
+                fx.rates = data.rates;
+                fx.base = data.base;
+                resolve(fx);
+            });
+        } else {
+            resolve(fx);
+        }
     })
 }
-
 
 function localise($element) {
     var type = $element.attr('data-localise');
@@ -64,14 +66,4 @@ function appendConversion (s, $element) {
     return $element.after(` (${s})`);
 }
 
-
 export default localise;
-
-// function() {
-//     var elements = $('[data-localise]');
-//     var converted = elements.map(function(el) {
-//         return localise(element);
-//     });
-
-//     console.log(converted);
-// }
