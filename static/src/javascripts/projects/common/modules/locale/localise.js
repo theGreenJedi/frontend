@@ -21,6 +21,10 @@ const options = {
     "weight": {
         "imperial": ["oz", "lb", "ton"],
         "metric": ["g", "kg", "tonne"]
+    },
+    "volume": {
+        "imperial": ["quart", "pint", "gallon"],
+        "metric": ["ml", "cl", "l"]
     }
 }
 
