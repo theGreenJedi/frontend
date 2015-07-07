@@ -2,8 +2,11 @@ import _ from 'lodash';
 import fx from 'money';
 import Qty from 'quantities';
 import ajaxPromise from 'common/utils/ajax-promise';
+import storage from 'common/utils/storage';
 
+const localStorage = storage.local;
 const key = '3916c4516c3842e8922ac3880867d583';
+const localStorageKey = 'localise.hackday';
 
 const options = {
     "currency": {
@@ -19,13 +22,15 @@ const options = {
         "imperial": ["oz", "lb", "ton"],
         "metric": ["g", "kg", "tonne"]
     }
-};
+}
 
-let exchange = null;
+function getUnit(type) {
+    return localStorage.get(key)[type];
+}
 
 function convert(type, value) {
     const qty = Qty(value);
-    const conversions = locales[currentLocale][type].map(unit => qty.to(unit));
+    const conversions = getUnit(type).map(unit => qty.to(unit));
 
     return bestFit(conversions).toString();
 }
@@ -44,7 +49,6 @@ function bestFit(array) {
 
     return best.toPrec(rounding);
 }
-
 
 function getRates() {
     return new Promise((resolve) => {
@@ -74,9 +78,9 @@ function localise($element) {
         case 'currency':
             getRates().then(function(fx) {
                 appendConversion(
-                    locales[currentLocale].currencySymbol +
+                    getUnit('currencySymbol') +
                     parseFloat(
-                        fx.convert(value, {from: unit, to: locales[currentLocale].currency})
+                        fx.convert(value, {from: unit, to: getUnit('currency')})
                     ).toFixed(2)
                 , $element);
             });
