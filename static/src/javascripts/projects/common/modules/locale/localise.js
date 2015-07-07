@@ -34,18 +34,33 @@ const options = {
     }
 }
 
+bean.on(document.body, 'click', '[data-localise-picker-type]', toggleLocaleOption);
 bean.on(document.body, 'click', '[data-localise]', toggleLocaleChooser);
 
 function toggleLocaleChooser(e) {
+    if(e.target.getAttribute('data-localise') === null) return;
     const $el = $(e.target);
     if (!$('.popup', $el).length) {
+        console.log(options[$el.attr('data-localise')]);
         var items = Object.keys(options[$el.attr('data-localise')]).map(function(item){
-            return template(localChooserItemTemplate, {title: options[$el.attr('data-localise')][item]});
+            return template(localChooserItemTemplate, {
+                title: options[$el.attr('data-localise')][item],
+                val: item,
+                type: $el.attr('data-localise')
+            });
         }).join('');
         $el[0].innerHTML += template(localChooserTemplate, {list: items});
     } else {
         $('.popup', $el).toggle();
     }
+}
+
+function toggleLocaleOption(e) {
+    var data = localStorage.get(localStorageKey);
+    data[e.target.getAttribute('data-localise-picker-type')] = e.target.getAttribute('data-chooser-option');
+    localStorage.set(localStorageKey, data);
+    $('[data-localise]').map((el) => localise($(el)));
+    $('[data-localise] .popup').hide();
 }
 
 function getUnit(type) {
