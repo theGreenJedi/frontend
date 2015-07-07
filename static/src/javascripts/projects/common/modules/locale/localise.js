@@ -30,7 +30,7 @@ function convert(type, value) {
 }
 
 function bestFit(array) {
-    const range = { min: 0.5, max: 1000 };
+    const range = { min: 0.2, max: 1000 };
     const suitable = array.filter(qty => {
         return qty.scalar > range.min && qty.scalar < range.max;
     }).sort().reverse();
@@ -38,7 +38,8 @@ function bestFit(array) {
     const rounding = best.scalar > 1000 ? 1000 :
                      best.scalar > 100 ? 100 :
                      best.scalar > 10 ? 10 :
-                     1;
+                     best.scalar > 1 ? 1 :
+                     0.5;
 
     return best.toPrec(rounding);
 }
