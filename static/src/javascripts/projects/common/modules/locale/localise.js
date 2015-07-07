@@ -34,9 +34,13 @@ function bestFit(array) {
     const suitable = array.filter(qty => {
         return qty.scalar > range.min && qty.scalar < range.max;
     }).sort().reverse();
-    const rounding = suitable[0] > 100 ? 100 : 10;
+    const best = suitable[0] || array.sort().reverse()[0];
+    const rounding = best.scalar > 1000 ? 1000 :
+                     best.scalar > 100 ? 100 :
+                     best.scalar > 10 ? 10 :
+                     1;
 
-    return suitable[0].toPrec(rounding);
+    return best.toPrec(rounding);
 }
 
 
