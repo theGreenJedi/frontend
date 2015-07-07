@@ -7,7 +7,8 @@ const key = 'localise.hackday';
 const defaults = {
     "currency": "USD",
     "distance": "imperial",
-    "weight": "imperial"
+    "weight": "imperial",
+    "volume": "imperial"
 };
 
 export default function() {

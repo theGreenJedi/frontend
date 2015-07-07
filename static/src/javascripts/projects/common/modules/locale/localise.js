@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import fx from 'money';
 import Qty from 'quantities';
+import numeral from 'numeral';
 import ajaxPromise from 'common/utils/ajax-promise';
 import storage from 'common/utils/storage';
 import template from 'common/utils/template';
@@ -26,6 +27,10 @@ const options = {
     "weight": {
         "imperial": ["oz", "lb", "ton"],
         "metric": ["g", "kg", "tonne"]
+    },
+    "volume": {
+        "imperial": ["quart", "pint", "gallon"],
+        "metric": ["ml", "cl", "l"]
     }
 }
 
@@ -69,6 +74,16 @@ function bestFit(array) {
     return best.toPrec(rounding);
 }
 
+function formatCurrency(value) {
+    const length = value.toString().length;
+    const format = length > 6 ? '0.00a' :
+                   length > 4 ? '0,0.00' :
+                   length > 2 ? '0,0[.]00' :
+                   '0';
+
+    return numeral(value).format(format);
+}
+
 function getRates() {
     return new Promise((resolve) => {
         if(_.isEmpty(fx.rates)) {
@@ -98,9 +113,7 @@ function localise($element) {
             getRates().then(function(fx) {
                 appendConversion(
                     getUnit('currency') +
-                    parseFloat(
-                        fx.convert(value, {from: unit, to: localStorage.get(localStorageKey)['currency']})
-                    ).toFixed(2)
+                    formatCurrency(fx.convert(value, {from: unit, to: localStorage.get(localStorageKey)['currency']}))
                 , $element);
             });
             break;
