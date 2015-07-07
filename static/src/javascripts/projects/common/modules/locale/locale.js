@@ -6,6 +6,7 @@ const localStorage = storage.local;
 const key = 'localise.hackday';
 const defaults = {
     "currency": "USD",
+    "currencySymbol": "$",
     "distance": ["in", "ft", "mi"],
     "weight": ["oz", "lb", "ton"]
 };
