@@ -97,7 +97,7 @@ function localise($element) {
 }
 
 function appendConversion (s, $element) {
-    return $element.attr('data-localised-string', ` (${s})`);
+    return $element.attr('data-localised-string', `(${s})`);
 }
 
 export default localise;
