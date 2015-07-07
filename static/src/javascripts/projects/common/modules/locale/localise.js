@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import fx from 'money';
+import Qty from 'quantities';
 import ajaxPromise from 'common/utils/ajax-promise';
 
 const key = '3916c4516c3842e8922ac3880867d583';
@@ -20,6 +21,24 @@ const locales = {
 
 let currentLocale = 'en-us';
 let exchange = null;
+
+function convert(type, value) {
+    const qty = Qty(value);
+    const conversions = locales[currentLocale][type].map(unit => qty.to(unit));
+
+    return bestFit(conversions);
+}
+
+function bestFit(array) {
+    const range = { min: 0.5, max: 1000 };
+    const suitable = array.filter(qty => {
+        return qty.scalar > range.min && qty.scalar < range.max;
+    }).sort().reverse();
+    const rounding = suitable[0] > 100 ? 100 : 10;
+
+    return suitable[0].toPrec(rounding);
+}
+
 
 function getRates() {
     return new Promise((resolve) => {
@@ -51,12 +70,15 @@ function localise($element) {
                 appendConversion(fx.convert(value, {
                     from: unit,
                     to: locales[currentLocale].currency
-                }));
-            })
+                }), $element);
+            });
+            break;
+
         case 'distance':
-            return new Distance(unit, value);
         case 'weight':
-            return new Weight(unit, value);
+            appendConversion(convert(type, `${value}${unit}`), $element);
+            break;
+
         default:
             appendConversion('bollocks', $element)
     }

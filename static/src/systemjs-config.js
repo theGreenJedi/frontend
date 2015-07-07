@@ -54,6 +54,7 @@ System.config({
     "money": "github:openexchangerates/money.js@0.1.3",
     "omniture": "vendor/omniture",
     "picturefill": "common/utils/picturefill",
+    "quantities": "github:gentooboontoo/js-quantities@1.5.0",
     "qwery": "npm:qwery@3.4.2",
     "raven": "github:getsentry/raven-js@1.1.18",
     "react": "npm:react@0.13.2",
