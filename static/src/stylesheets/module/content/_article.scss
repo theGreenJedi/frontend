@@ -63,11 +63,12 @@
 
     &:after {
         content: attr(data-localised-string);
-        font-size: 12px;
+        font-size: 14px;
         color: #666;
-        border-bottom: 1px dotted #666;
         margin-left: 1ex;
         display: inline-block;
+        cursor: pointer;
+        border-bottom: 1px dotted #ccc;
     }
 
     .popup {
