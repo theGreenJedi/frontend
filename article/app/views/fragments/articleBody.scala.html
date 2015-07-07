@@ -38,7 +38,18 @@
 
                     <div class="content__article-body from-content-api js-article__body" itemprop="@if(article.isReview){reviewBody} else {articleBody}"
                         data-test-id="article-review-body">
-                        <span data-localise="currency" data-unit="GBP" data-value="30">£30</span><br>
+                        <span data-localise="currency" data-unit="GBP" data-value="30">£30
+                        <div class="popup">
+                            <ul class="popup__group">
+                                <li class="popup__item">
+                                    <a class="brand-bar__item--action">$</a>
+                                </li>
+                                <li class="popup__item">
+                                    <a class="brand-bar__item--action">AU$</a>
+                                </li>
+                            </ul>
+                        </div>
+                        </span><br>
                         <span data-localise="distance" data-unit="km" data-value="30">30km</span><br>
                         <span data-localise="weight" data-unit="kg" data-value="30">30kg</span><br>
                         @BodyCleaner(article, article.body)

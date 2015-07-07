@@ -58,3 +58,39 @@
     }
 }
 
+[data-localise] {
+    position: relative;
+
+    &:after {
+        content: attr(data-localised-string);
+        font-size: 12px;
+        color: #666;
+        border-bottom: 1px dotted #666;
+        margin-left: 1ex;
+        display: inline-block;
+    }
+
+    .popup {
+        position: absolute;
+        margin: 0;
+        right: 0;
+        top: 100%;
+        z-index: 100;
+        font-family: 'Guardian Text Egyptian Web', Georgia, serif;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 0 10px;
+        min-width: 0;
+        left: auto;
+        margin-top: 3px;
+
+        li {
+            list-style: none;
+            &:before {display: none !important}
+        }
+    }
+
+    .popup__group {
+        margin: 0;
+    }
+}

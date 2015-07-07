@@ -5,23 +5,22 @@ import ajaxPromise from 'common/utils/ajax-promise';
 
 const key = '3916c4516c3842e8922ac3880867d583';
 
-const locales = {
-    "en-us": {
-        "currency": "USD",
-        "currencySymbol": "$",
-        "distance": ["in", "ft", "mi"],
-        "weight": ["oz", "lb", "ton"]
+const options = {
+    "currency": {
+        "USD": "$",
+        "GBP": "£",
+        "AUD": "AU$"
     },
-
-    "en-au": {
-        "currency": "AUD",
-        "currencySymbol": "AU$",
-        "distance": ["mm", "cm", "m", "km"],
-        "weight": ["mg", "g", "kg"]
+    "distance": {
+        "imperial": ["in", "ft", "mi"],
+        "metric": ["mm", "cm", "m", "km"]
+    },
+    "weight": {
+        "imperial": ["oz", "lb", "ton"],
+        "metric": ["g", "kg", "tonne"]
     }
 };
 
-let currentLocale = 'en-us';
 let exchange = null;
 
 function convert(type, value) {
@@ -94,7 +93,7 @@ function localise($element) {
 }
 
 function appendConversion (s, $element) {
-    return $element.after(` (${s})`);
+    return $element.attr('data-localised-string', ` (${s})`);
 }
 
 export default localise;
