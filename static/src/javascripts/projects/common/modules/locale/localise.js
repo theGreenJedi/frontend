@@ -25,7 +25,7 @@ const options = {
 }
 
 function getUnit(type) {
-    return localStorage.get(localStorageKey)[type];
+    return options[type][localStorage.get(localStorageKey)[type]];
 }
 
 function convert(type, value) {
@@ -78,9 +78,9 @@ function localise($element) {
         case 'currency':
             getRates().then(function(fx) {
                 appendConversion(
-                    getUnit('currencySymbol') +
+                    getUnit('currency') +
                     parseFloat(
-                        fx.convert(value, {from: unit, to: getUnit('currency')})
+                        fx.convert(value, {from: unit, to: localStorage.get(localStorageKey)['currency']})
                     ).toFixed(2)
                 , $element);
             });
