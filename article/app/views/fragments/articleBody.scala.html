@@ -6,65 +6,394 @@
 
 @defining(model.article) { article =>
 <div class="l-side-margins">
-    <article id="article" data-test-id="article-root"
-        class="content content--article tonal tonal--@articleToneClass(article) section-@article.sectionName.trim.toLowerCase.replaceAll("""[\s-]+""", "-")
-        @if(article.isAdvertisementFeature){content--advertisement-feature}
-        @if(article.isFeature && article.hasShowcaseMainPicture){has-feature-showcase-picture}"
-        itemscope itemtype="@article.schemaType" role="main">
+    <article id="article" data-test-id="article-root" class="content content--article tonal tonal--tone-news section-media
 
-        @fragments.headTonal(article)
-
-        @if(article.isFeature && article.hasShowcaseMainPicture) {
-            @fragments.mainMedia(article)
-        }
-
-        <div class="content__main tonal__main tonal__main--@articleToneClass(article)">
+        " itemscope="" itemtype="http://schema.org/NewsArticle" role="main">
+        <header class="content__head tonal__head tonal__head--tone-news
+    ">
+            <div class="content__header tonal__header u-cf">
+                <div class="gs-container">
+                    <div class="content__main-column">
+                        <div class="content__labels">
+                            <div class="content__section-label">
+                                <a class="content__section-label__link" data-link-name="article section" href="http://www.theguardian.com/media/bbc">BBC</a>
+                            </div>
+                        </div>
+                        <h1 class="content__headline js-score" itemprop="headline">
+                            Tony Hall rejects claims licence fee deal turns BBC into a branch of the DWP
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="tonal__standfirst u-cf">
+                <div class="gs-container">
+                    <div class="content__main-column">
+                        <div class="content__standfirst" data-link-name="standfirst" data-component="standfirst">
+                            <meta itemprop="description" content="Director general insists plan agreed with George Osborne is a strong one, despite criticism that it was struck behind closed doors">
+                            <p>Director general insists plan agreed with George Osborne is a strong one, despite criticism that it was struck behind closed doors<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="content__main tonal__main tonal__main--tone-news">
             <div class="gs-container">
-                <div class="content__main-column content__main-column--article js-content-main-column @if(article.isSudoku) {sudoku}">
-
+                <div class="content__main-column content__main-column--article js-content-main-column ">
                     <div class="js-football-tabs football-tabs content__mobile-full-width"></div>
+                    <figure itemprop="associatedMedia image" itemscope="" itemtype="http://schema.org/ImageObject" data-component="image" class="media-primary media-content">
+                        <meta itemprop="representativeOfPage" content="true">
+                        <a href="/media/2015/jul/07/tony-hall-licence-fee-deal-bbc-dwp-george-osborne#img-1" class="article__img-container js-gallerythumbs" data-link-name="Launch Article Lightbox" data-is-ajax="">
+                            <div class="">
+                                <img src="//i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2015/7/7/1436256667150/df37240e-dffd-4088-8b12-305ece1b47e2-2060x1236.jpeg?w=300&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=02030fa325ec7ac1057641f9031fcdbe" srcset="//i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2015/7/7/1436256667150/df37240e-dffd-4088-8b12-305ece1b47e2-2060x1236.jpeg?w=620&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=63b0c485814e30fa03e94a1fcf8fca46 620w, //i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2015/7/7/1436256667150/df37240e-dffd-4088-8b12-305ece1b47e2-2060x1236.jpeg?w=700&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=9690916880178967be174df85cd4408c 700w, //i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2015/7/7/1436256667150/df37240e-dffd-4088-8b12-305ece1b47e2-2060x1236.jpeg?w=645&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=251d8825a4230a337bacc48c71553fe4 645w, //i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2015/7/7/1436256667150/df37240e-dffd-4088-8b12-305ece1b47e2-2060x1236.jpeg?w=465&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=4bdba006f09ed5433569116355f82d1c 465w" sizes="(min-width: 980px) 620px, (min-width: 740px) 700px, (min-width: 660px) 620px, (min-width: 480px) 645px, 465px" class="maxed responsive-img" itemprop="contentUrl" alt="BBC director general Tony Hall has defended the licence fee deal struck with George Osborne.">
+                                <span class="rounded-icon article__fullscreen"><i class="i i-expand-white"></i><i class="i i-expand-black"></i></span>
+                            </div>
+                        </a>
+                        <figcaption class="caption caption--main caption--img" itemprop="description">
+                            BBC director general Tony Hall has defended the licence fee deal struck with George Osborne.
+                            Photograph: Lewis Whyld/PA
+                        </figcaption>
+                    </figure>
+                    <div class="content__meta-container js-content-meta js-football-meta u-cf
 
-                    @if(!(article.isFeature && article.hasShowcaseMainPicture)) {
-                        @fragments.mainMedia(article)
-                    }
 
-                    @fragments.witnessCallToAction(article)
 
-                    @fragments.contentMeta(article)
 
-                    @if(article.isNews && !article.hasMainEmbed && article.elements("main").isEmpty) {
-                        <hr class="content__hr hide-until-leftcol" />
-                    }
 
-                    <div class="content__article-body from-content-api js-article__body" itemprop="@if(article.isReview){reviewBody} else {articleBody}"
-                        data-test-id="article-review-body">
-                        <span data-localise="currency" data-unit="GBP" data-value="30">£30
-                        <div class="popup">
-                            <ul class="popup__group">
-                                <li class="popup__item">
-                                    <a class="brand-bar__item--action">$</a>
+     content__meta-container--twitter
+    ">
+                        <p class="byline" data-link-name="byline" data-component="meta-byline"><span itemscope="" itemtype="http://schema.org/Person" itemprop="author">
+                            <a rel="author" class="tone-colour" itemprop="url name" data-link-name="auto tag link" href="http://www.theguardian.com/profile/damien-gayle">Damien Gayle</a></span></p>
+                        <div class="meta__twitter">
+                            <a href="http://twitter.com/damiengayle" data-link-name="twitter-handle" data-component="meta-twitter-handle" class="button button--small button--secondary tone-colour">
+                                <span class="inline-twitter-bird inline-icon inline-tone-fill i-left">
+                                    <svg width="24" height="24" viewBox="0 0 24 24"><path d="M19 7.346c-.52.228-1.07.383-1.65.45.592-.355 1.047-.917 1.264-1.587-.556.327-1.172.565-1.824.696-.52-.56-1.27-.906-2.098-.906-1.586 0-2.873 1.285-2.873 2.87 0 .228.025.444.075.653-2.387-.117-4.5-1.262-5.918-3-.248.426-.39.918-.39 1.444 0 .995.508 1.875 1.28 2.39-.472-.014-.915-.145-1.303-.357v.035c0 1.393.99 2.553 2.304 2.815-.24.065-.495.103-.757.103-.184 0-.365-.02-.54-.055.366 1.145 1.427 1.975 2.683 1.996-.983.772-2.223 1.23-3.568 1.23-.23 0-.46-.015-.685-.038 1.272.812 2.78 1.29 4.403 1.29 5.284 0 8.17-4.376 8.17-8.17 0-.126 0-.25-.01-.374.563-.406 1.05-.912 1.436-1.486"></path></svg>
+                                </span>
+                                <div class="contact">damiengayle</div>
+                            </a>
+                        </div>
+                        <p class="content__dateline" aria-hidden="true">
+                            <time itemprop="datePublished" datetime="2015-07-07T09:29:54+0100" data-timestamp="1436257794000" class="content__dateline-wpd js-wpd content__dateline-wpd--modified tone-colour">
+                                Tuesday 7 July 2015 <span class="content__dateline-time">09.29&nbsp;BST</span>
+                            </time>
+                            <time itemprop="dateModified" datetime="2015-07-07T09:42:42+0100" data-timestamp="1436258562000" class="content__dateline-lm js-lm u-h">
+                                Last modified on Tuesday 7 July 2015 <span class="content__dateline-time">09.42&nbsp;BST</span>
+                            </time>
+                        </p>
+                        <div class="meta__extras">
+                            <div class="meta__social" data-component="share">
+                                <ul class="social social--top u-unstyled u-cf" data-component="social">
+                                    <li class="social__item social__item--facebook" data-link-name="facebook">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social top" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fsfb&amp;ref=responsive" target="_blank" title="Facebook">
+                                            <span class="u-h">Share on Facebook</span>
+                                            <span class="rounded-icon social-icon social-icon--facebook">
+                                                <i class="i-share-facebook--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--twitter" data-link-name="twitter">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social top" href="https://twitter.com/intent/tweet?text=Tony+Hall+rejects+claims+licence+fee+deal+turns+BBC+into+a+branch+of+the+DWP&amp;url=http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fstw" target="_blank" title="Twitter">
+                                            <span class="u-h">Share on Twitter</span>
+                                            <span class="rounded-icon social-icon social-icon--twitter">
+                                                <i class="i-share-twitter--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--email" data-link-name="email">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social top" href="mailto:?subject=Tony%20Hall%20rejects%20claims%20licence%20fee%20deal%20turns%20BBC%20into%20a%20branch%20of%20the%20DWP&amp;body=http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fsbl" target="_blank" title="Email">
+                                            <span class="u-h">Share via Email</span>
+                                            <span class="rounded-icon social-icon social-icon--email">
+                                                <i class="i-share-email--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--pinterest" data-link-name="pinterest" style="display: block;">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social top" href="http://www.pinterest.com/pin/find/?url=http%3A%2F%2Fwww.theguardian.com%2Fmedia%2F2015%2Fjul%2F07%2Ftony-hall-licence-fee-deal-bbc-dwp-george-osborne" target="_blank" title="Pinterest">
+                                            <span class="u-h">Share on Pinterest</span>
+                                            <span class="rounded-icon social-icon social-icon--pinterest">
+                                                <i class="i-share-pinterest--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--linkedin" data-link-name="linkedin">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social top" href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Tony+Hall+rejects+claims+licence+fee+deal+turns+BBC+into+a+branch+of+the+DWP&amp;url=http%3A%2F%2Fgu.com%2Fp%2F4ae56" target="_blank" title="LinkedIn">
+                                            <span class="u-h">Share on LinkedIn</span>
+                                            <span class="rounded-icon social-icon social-icon--linkedin">
+                                                <i class="i-share-linkedin--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--gplus" data-link-name="gplus">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social top" href="https://plus.google.com/share?url=http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fsgp&amp;amp;hl=en-GB&amp;amp;wwc=1" target="_blank" title="Google plus">
+                                            <span class="u-h">Share on Google+</span>
+                                            <span class="rounded-icon social-icon social-icon--gplus">
+                                                <i class="i-share-gplus--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--whatsapp" data-link-name="whatsapp">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social top" href="whatsapp://send?text=%22Tony%20Hall%20rejects%20claims%20licence%20fee%20deal%20turns%20BBC%20into%20a%20branch%20of%20the%20DWP%22%20http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fswa" target="_blank" title="WhatsApp">
+                                            <span class="u-h">Share on WhatsApp</span>
+                                            <span class="rounded-icon social-icon social-icon--whatsapp">
+                                                <i class="i-share-whatsapp--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="meta__numbers modern-visible">
+                                <div class="meta__number js-sharecount" title="Facebook: 6
+Twitter: 51"><h3 class="sharecount__heading"><i class="i"></i>Shares</h3>
+                                    <div class="sharecount__value sharecount__value--full">57</div>
+                                    <div class="sharecount__value sharecount__value--short">57</div></div>
+                                <div class="meta__number" data-commentcount-format="content" data-discussion-closed="false" data-node-uid="12">
+                                    <a href="#comments" data-link-name="Comment count" class="commentcount2 tone-colour">
+                                        <h3 class="commentcount2__heading"><span class="inline-tone-fill inline-svg.js inline- inline- inline-opt inline-TeamCity inline-buildAgent inline-work inline-4a349b000662929b inline-static inline-src inline-inline-svgs inline-icon inline-comment-16.svg!file: inline- inline- inline-opt inline-TeamCity inline-buildAgent inline-work inline-4a349b000662929b inline-static inline-src inline-javascripts inline-es6 inline-projects inline-common inline-utils"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M13 0l1 1v7l-1 1h-6l-2 3h-1v-3h-2l-1-1v-7l1-1h11z"></path></svg>
+                                        </span> Comments</h3>
+                                        <span class="commentcount2__value tone-colour">322</span>
+                                    </a></div>
+                            </div>
+                            <div class="meta__save-for-later js-save-for-later" data-position="top" style="display: block;"><button class="button button--medium button--tertiary save-for-later__button js-save-for-later__button save-for-later__button--save" data-link-name="Save | top" data-component="save-for-later" data-custom-event-properties="{ &quot;prop74&quot;: &quot;ArticleSave:media/2015/jul/07/tony-hall-licence-fee-deal-bbc-dwp-george-osborne&quot; }">
+                                <span class="rounded-icon inline-svg.js inline- inline- inline-opt inline-TeamCity inline-buildAgent inline-work inline-4a349b000662929b inline-static inline-src inline-inline-svgs inline-icon inline-bookmark.svg!file: inline- inline- inline-opt inline-TeamCity inline-buildAgent inline-work inline-4a349b000662929b inline-static inline-src inline-javascripts inline-es6 inline-projects inline-common inline-utils"><svg width="8.6" height="16" viewBox="0 0 8.6 16">
+                                    <path d="M0 15.7V1l1-1h6.5l1 1v14.7l-.2.3-4-2.2-4 2.2"></path>
+                                </svg>
+                                </span>
+                                <span class="save-for-later__label save-for-later__label--save">Save for later</span>
+                                <span class="save-for-later__label save-for-later__label--saved">Article saved</span>
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content__article-body from-content-api js-article__body" itemprop="articleBody" data-test-id="article-review-body" style="display: block;">
+                        <p>Tony Hall has come out fighting against claims that forcing the <a href="http://www.theguardian.com/media/bbc" data-link-name="auto-linked-tag" data-component="auto-linked-tag" class=" u-underline">BBC</a> to bear the cost of free television licences for the over-75s turns the corporation into a branch of the Department for Work and Pensions.</p>
+                        <p>Lord Hall, BBC director general, insisted the <span data-localise="currency" data-unit="GBP" data-value="750000000">£750m</span> cost of the plan, agreed ahead of Wednesday’s budget after a week of secret talks, was more than matched by the deal he had struck with with the Treasury.</p>
+                        <span>He pointed to George Osborne’s vow to allow the <span data-localise="currency" data-unit="GBP" data-value="145.50">£145.50</span> licence fee to increase in line with inflation, an end to top-slicing of money to fund rural broadband and the “modernisation” of the fee’s structure.</p>
+                        <aside class="element element-rich-link element--thumbnail element-rich-link--upgraded" data-component="rich-link" data-link-name="rich-link-1 | 1">
+
+
+
+
+
+                            <div class="rich-link tone-news--item ">
+
+                                <div class="rich-link__container">
+
+
+
+
+                                    <div class="rich-link__image-container u-responsive-ratio">
+                                        <img src="//i.guim.co.uk/static/w-460/h--/q-95/sys-images/Guardian/Pix/pictures/2015/7/6/1436212828207/fd8fe7e8-5ef8-4505-9204-547d2680b9f4-460x276.jpeg" itemprop="contentURL">
+                                    </div>
+
+
+
+
+                                    <div class="rich-link__header">
+                                        <h1 class="rich-link__title"><a class="rich-link__link">George Osborne forces  BBC to pay for over-75s' TV licences</a></h1>
+
+
+                                    </div>
+
+
+                                    <div class="rich-link__standfirst u-cf">
+                                        Former director general Lord Birt says ‘deeply shocking deal’ before charter renewal negotiations was reached with no public discussion
+                                    </div>
+
+
+
+
+                                    <div class="rich-link__read-more">
+                                        <div class="rich-link__arrow">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path class="rich-link__arrow-icon" d="m12 0c-6.627 0-12 5.373-12 12 0 6.627 5.373 12 12 12 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12m.21 19l-.637-.668 4.888-6.326h-11.465v-1.01h11.465l-4.888-6.333.637-.668 6.79 7.158v.685l-6.79 7.157"></path></g></svg>
+                                        </div>
+                                        <div class="rich-link__read-more-text">
+                                            Read more
+                                        </div>
+                                    </div>
+                                    <a class="rich-link__link u-faux-block-link__overlay" href="http://www.theguardian.com/media/2015/jul/06/osborne-slashes-bbc-budget-pay-over-75s-tv-licences"></a>
+                                </div>
+                            </div>
+                        </aside>
+                        <p>Speaking to John Humphrys on BBC Radio 4’s Today programme, he said: “I think we have a deal here which is a strong deal for the BBC. It gives us financial stability.”</p>
+                            <p>Weight: <span data-localise="weight" data-unit="kg" data-value="6000">6000kg</span></p>
+                            <p>Distance: <span data-localise="distance" data-unit="m" data-value="35">35m</span></p>
+                            <p>Volume: <span data-localise="volume" data-unit="l" data-value="12345">12345l</span></p>
+                        <p>Hall was on the defensive after widespread criticism of the deal, revealed on Monday, including from former Labour culture secretary Ben Bradshaw who said it would turn the corporation into a branch of the DWP.</p>
+                        <p>Former director general John Birt told the House of Lords that the “deeply shocking deal” amounted to a breach of the BBC’s independence, while BBC Trust chair Rona Fairhead criticised the secret negotiations from which she was excluded.</p>
+                        <p>On face value, the cost of the deal seems disastrous for the broadcaster, coming on the heels of the announcement of 1,000 job cuts to deal with a <span data-localise="currency" data-unit="GBP" data-value="150000000">£150m</span> funding shortfall next year due to increasing numbers of people not paying for licences. <br></p>
+                        <p>But Hall insisted he had got a good deal. “The government’s decision here to put the cost of the over-75s on us has been more than matched by the deal coming back for the BBC. <br></p>
+                        <div id="dfp-ad--inline1" class="js-ad-slot ad-slot ad-slot--dfp ad-slot--inline1 ad-slot--inline" data-link-name="ad slot inline1" data-test-id="ad-slot-inline1" data-name="inline1" data-mobile="1,1|300,50|300,250" data-mobile-landscape="1,1|300,50|320,50|300,250" data-tablet="1,1|300,250" data-node-uid="14"><div class="ad-slot__label" data-test-id="ad-slot-label">Advertisement</div><div id="google_ads_iframe_/59666047/theguardian.com/media/article/ng_1__container__" style="border: 0pt none;" class="ad-slot__content"><iframe id="google_ads_iframe_/59666047/theguardian.com/media/article/ng_1" name="google_ads_iframe_/59666047/theguardian.com/media/article/ng_1" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px; vertical-align: bottom;"></iframe></div></div><p>“When I was confronted with this policy a week ago my bottom line was if I can use this as an opportunity to get back for the BBC things I think are really important for the BBC … then I think that’s really important. And that’s exactly what we’ve done.”</p>
+                        <p>In the face of criticisms that the BBC was taking on a political role by taking charge of licence fee policy, Hall said that the change would bring the broadcaster in line with other arts organisations. </p>
+                        <p>“I think being in control of our income in all sorts of ways is a very grown-up response for the BBC and a grown-up response for any organisation,” he said. <br></p>
+                        <p>The new licence fee settlement was a surprise announcement in the House of Commons on Tuesday in response to urgent questions by Labour a day after Osborne accused the BBC of being “imperial in its ambitions”.<br></p>
+                        <p>Hall said after the announcement by culture secretary John Whittingdale that the new formula, which would also close a loophole over online catchup services, would mean the BBC’s income could even rise over the next five years. </p>
+                        <p>BBC sources, however, refused to rule out future closure of channels or radio stations as a result of the deal and the charter renewal negotiations expected to be launched with a government green paper in the coming weeks.</p>
+                    </div>
+                    <div class="submeta">
+                        <hr>
+                        <div data-link-name="keywords" data-component="keywords">
+                            <a class="submeta__tone button button--small button--tag button--secondary" href="http://www.theguardian.com/tone/news" data-link-name="tone: News" itemprop="keywords">More news </a>
+                            <h2 class="submeta__head">Topics</h2>
+                            <ul class="keyword-list inline-list">
+                                <li class="inline-list__item ">
+                                    <a class="  button button--small button--tag button--secondary" href="http://www.theguardian.com/media/bbc" data-link-name="keyword: media/bbc" itemprop="keywords">
+                                        BBC
+                                    </a>
                                 </li>
-                                <li class="popup__item">
-                                    <a class="brand-bar__item--action">AU$</a>
+                                <li class="inline-list__item ">
+                                    <a class="  button button--small button--tag button--secondary" href="http://www.theguardian.com/media/television" data-link-name="keyword: media/television" itemprop="keywords">
+                                        Television industry
+                                    </a>
+                                </li>
+                                <li class="inline-list__item ">
+                                    <a class="  button button--small button--tag button--secondary" href="http://www.theguardian.com/media/radio" data-link-name="keyword: media/radio" itemprop="keywords">
+                                        Radio industry
+                                    </a>
+                                </li>
+                                <li class="inline-list__item ">
+                                    <a class="  button button--small button--tag button--secondary" href="http://www.theguardian.com/politics/georgeosborne" data-link-name="keyword: politics/georgeosborne" itemprop="keywords">
+                                        George Osborne
+                                    </a>
                                 </li>
                             </ul>
                         </div>
-                        </span><br>
-                        <span data-localise="distance" data-unit="km" data-value="30">30km</span><br>
-                        <span data-localise="weight" data-unit="kg" data-value="30">30kg</span><br>
-                        @BodyCleaner(article, article.body)
+                        <hr>
+                        <div class="u-cf">
+                            <div data-component="share" class="submeta__share">
+                                <ul class="social social--bottom u-unstyled u-cf" data-component="social">
+                                    <li class="social__item social__item--facebook" data-link-name="facebook">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social bottom" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fsfb&amp;ref=responsive" target="_blank" title="Facebook">
+                                            <span class="u-h">Share on Facebook</span>
+                                            <span class="rounded-icon social-icon social-icon--facebook">
+                                                <i class="i-share-facebook--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--twitter" data-link-name="twitter">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social bottom" href="https://twitter.com/intent/tweet?text=Tony+Hall+rejects+claims+licence+fee+deal+turns+BBC+into+a+branch+of+the+DWP&amp;url=http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fstw" target="_blank" title="Twitter">
+                                            <span class="u-h">Share on Twitter</span>
+                                            <span class="rounded-icon social-icon social-icon--twitter">
+                                                <i class="i-share-twitter--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--email" data-link-name="email">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social bottom" href="mailto:?subject=Tony%20Hall%20rejects%20claims%20licence%20fee%20deal%20turns%20BBC%20into%20a%20branch%20of%20the%20DWP&amp;body=http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fsbl" target="_blank" title="Email">
+                                            <span class="u-h">Share via Email</span>
+                                            <span class="rounded-icon social-icon social-icon--email">
+                                                <i class="i-share-email--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--pinterest" data-link-name="pinterest" style="display: block;">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social bottom" href="http://www.pinterest.com/pin/find/?url=http%3A%2F%2Fwww.theguardian.com%2Fmedia%2F2015%2Fjul%2F07%2Ftony-hall-licence-fee-deal-bbc-dwp-george-osborne" target="_blank" title="Pinterest">
+                                            <span class="u-h">Share on Pinterest</span>
+                                            <span class="rounded-icon social-icon social-icon--pinterest">
+                                                <i class="i-share-pinterest--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--linkedin" data-link-name="linkedin">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social bottom" href="http://www.linkedin.com/shareArticle?mini=true&amp;title=Tony+Hall+rejects+claims+licence+fee+deal+turns+BBC+into+a+branch+of+the+DWP&amp;url=http%3A%2F%2Fgu.com%2Fp%2F4ae56" target="_blank" title="LinkedIn">
+                                            <span class="u-h">Share on LinkedIn</span>
+                                            <span class="rounded-icon social-icon social-icon--linkedin">
+                                                <i class="i-share-linkedin--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--gplus" data-link-name="gplus">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social bottom" href="https://plus.google.com/share?url=http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fsgp&amp;amp;hl=en-GB&amp;amp;wwc=1" target="_blank" title="Google plus">
+                                            <span class="u-h">Share on Google+</span>
+                                            <span class="rounded-icon social-icon social-icon--gplus">
+                                                <i class="i-share-gplus--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="social__item social__item--whatsapp" data-link-name="whatsapp">
+                                        <a class="social__action social-icon-wrapper" data-link-name="social bottom" href="whatsapp://send?text=%22Tony%20Hall%20rejects%20claims%20licence%20fee%20deal%20turns%20BBC%20into%20a%20branch%20of%20the%20DWP%22%20http%3A%2F%2Fgu.com%2Fp%2F4ae56%2Fswa" target="_blank" title="WhatsApp">
+                                            <span class="u-h">Share on WhatsApp</span>
+                                            <span class="rounded-icon social-icon social-icon--whatsapp">
+                                                <i class="i-share-whatsapp--white i"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="js-save-for-later submeta__save-for-later" data-position="bottom" style="display: block;"><button class="button button--medium button--tertiary save-for-later__button js-save-for-later__button save-for-later__button--save" data-link-name="Save | bottom" data-component="save-for-later" data-custom-event-properties="{ &quot;prop74&quot;: &quot;ArticleSave:media/2015/jul/07/tony-hall-licence-fee-deal-bbc-dwp-george-osborne&quot; }">
+                                <span class="rounded-icon inline-svg.js inline- inline- inline-opt inline-TeamCity inline-buildAgent inline-work inline-4a349b000662929b inline-static inline-src inline-inline-svgs inline-icon inline-bookmark.svg!file: inline- inline- inline-opt inline-TeamCity inline-buildAgent inline-work inline-4a349b000662929b inline-static inline-src inline-javascripts inline-es6 inline-projects inline-common inline-utils"><svg width="8.6" height="16" viewBox="0 0 8.6 16">
+                                    <path d="M0 15.7V1l1-1h6.5l1 1v14.7l-.2.3-4-2.2-4 2.2"></path>
+                                </svg>
+                                </span>
+                                <span class="save-for-later__label save-for-later__label--save">Save for later</span>
+                                <span class="save-for-later__label save-for-later__label--saved">Article saved</span>
+                            </button>
+                            </div>
+                        </div>
                     </div>
-
-                    @fragments.witnessCallToAction(article)
-
-                    @fragments.submeta(article)
-
                     <div class="after-article js-after-article"></div>
                 </div>
-
                 <div class="content__secondary-column js-secondary-column" aria-hidden="true">
-                    <div class="mpu-container js-mpu-ad-slot"></div>
-                    <div class="js-components-container"></div>
+                    <div class="mpu-container js-mpu-ad-slot" style="display: block;"><div id="dfp-ad--right" class="js-ad-slot ad-slot ad-slot--dfp ad-slot--right ad-slot--mpu-banner-ad" data-link-name="ad slot right" data-test-id="ad-slot-right" data-name="right" data-mobile="1,1|300,250|300,251|300,600" data-node-uid="15"><div class="ad-slot__label" data-test-id="ad-slot-label">Advertisement</div><div id="google_ads_iframe_/59666047/theguardian.com/media/article/ng_2__container__" style="border: 0pt none;" class="ad-slot__content"><iframe id="google_ads_iframe_/59666047/theguardian.com/media/article/ng_2" name="google_ads_iframe_/59666047/theguardian.com/media/article/ng_2" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div>
+                    <div class="js-components-container"><div class="component--rhc" data-importance="1"><div class="open-cta"></div></div><div class="js-right-most-popular right-most-popular right-most-popular--image component--rhc hide-on-childrens-books-site" data-component="geo-most-popular" data-importance="-1" data-test-id="right-most-popular">
+                        <h3 class="content__meta-heading">Most popular </h3>
+                        <ul class="right-most-popular__items u-unstyled" data-link-name="Right hand most popular geo GB">
+
+                            <li class="right-most-popular-item" data-link-name="trail | 1">
+                                <a class="right-most-popular-item__url media u-cf" href="http://www.theguardian.com/sport/2015/jul/07/dawn-fraser-sorry-for-racist-outburst-on-nick-kyrgios-and-bernard-tomic">
+
+                                    <div class="right-most-popular-item__img media__img">
+                                        <img class="responsiveimg" src=" //i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2015/7/7/1436233656159/Dawn-Fraser-Nine-012.jpg?w=300&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=7262ec07f7d544b8536519ecfdfb021c " alt="">
+                                    </div>
+
+                                    <h4 class="right-most-popular-item__headline media__body">Dawn Fraser sorry for 'racist' outburst on Nick Kyrgios and Bernard Tomic</h4>
+                                </a>
+                            </li>
+
+                            <li class="right-most-popular-item" data-link-name="trail | 2">
+                                <a class="right-most-popular-item__url media u-cf" href="http://www.theguardian.com/world/2015/jul/07/migrant-dies-uk-bound-freight-shuttle-near-calais-france">
+
+                                    <div class="right-most-popular-item__img media__img">
+                                        <img class="responsiveimg" src=" //i.guim.co.uk/img/media/a965e9b69550c3bfc7e2db76c93d409897ab1211/0_73_2856_1714/master/2856.jpg?w=300&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=10b0faf1db163cc7a06cbd17d4bf2622 " alt="">
+                                    </div>
+
+                                    <h4 class="right-most-popular-item__headline media__body">Migrant dies on UK-bound freight train near Calais</h4>
+                                </a>
+                            </li>
+
+                            <li class="right-most-popular-item" data-link-name="trail | 3">
+                                <a class="right-most-popular-item__url media u-cf" href="http://www.theguardian.com/business/2015/jul/07/eurozone-calls-on-athens-to-get-serious-over-greece-debt-crisis">
+
+                                    <div class="right-most-popular-item__img media__img">
+                                        <img class="responsiveimg" src=" //i.guim.co.uk/img/media/50293aeb29ba24c0a564556f2ed7e91b8ad2743f/0_182_5472_3283/master/5472.jpg?w=300&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=6539b993135530cca140f7b810b32fcf " alt="">
+                                    </div>
+
+                                    <h4 class="right-most-popular-item__headline media__body">Eurozone calls on Athens to get serious over Greece debt crisis</h4>
+                                </a>
+                            </li>
+
+                            <li class="right-most-popular-item" data-link-name="trail | 4">
+                                <a class="right-most-popular-item__url media u-cf" href="http://www.theguardian.com/world/live/2015/jul/07/greek-debt-crisis-alex-tsipras-seeks-last-chance-deal-live">
+
+                                    <div class="right-most-popular-item__img media__img">
+                                        <img class="responsiveimg" src=" //i.guim.co.uk/img/media/670ddc74e682c537125617bc6009110a5157b6d0/0_0_2479_1488/master/2479.jpg?w=300&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=5937eae76d99ea18a29b3a73ae452424 " alt="">
+                                    </div>
+
+                                    <h4 class="right-most-popular-item__headline media__body">Greek debt crisis: Grexit possible, says EC boss - live</h4>
+                                </a>
+                            </li>
+
+                            <li class="right-most-popular-item" data-link-name="trail | 5">
+                                <a class="right-most-popular-item__url media u-cf" href="http://www.theguardian.com/uk-news/live/2015/jul/07/britain-to-fall-silent-in-memory-of-7-july-2005-attacks">
+
+                                    <div class="right-most-popular-item__img media__img">
+                                        <img class="responsiveimg" src=" //i.guim.co.uk/img/media/9f2af2f9f14eb73887c5cd68c4374d91c2815494/0_223_3500_2101/master/3500.jpg?w=300&amp;q=85&amp;auto=format&amp;sharp=10&amp;s=043f5bd92428065c11a4d1cfdfe0f66b " alt="">
+                                    </div>
+
+                                    <h4 class="right-most-popular-item__headline media__body">7/7 bombings: Britain marks 10th anniversary of attacks – live</h4>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div></div>
                 </div>
             </div>
         </div>
