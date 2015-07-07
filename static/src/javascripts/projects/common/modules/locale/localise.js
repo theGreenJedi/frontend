@@ -16,10 +16,11 @@ const localStorageKey = 'localise.hackday';
 
 const options = {
     "currency": {
-        "USD": "$",
         "GBP": "£",
-        "AUD": "AU$",
         "EUR": "€",
+        "USD": "$",
+        "AUD": "AU$",
+        "CAD": "C$",
         "JPY": "¥"
     },
     "distance": {
