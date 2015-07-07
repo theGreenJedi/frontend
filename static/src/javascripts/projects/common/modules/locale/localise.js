@@ -67,7 +67,7 @@ function bestFit(array) {
     const best = suitable[0] || array.sort().reverse()[0];
     const rounding = best.scalar > 10000 ? 1000 :
                      best.scalar > 100 ? 100 :
-                     best.scalar > 10 ? 10 :
+                     best.scalar > 50 ? 10 :
                      best.scalar > 1 ? 1 :
                      0.5;
 
