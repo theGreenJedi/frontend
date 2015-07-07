@@ -12,7 +12,7 @@ let currentLocale = 'en-us';
 let exchange = null;
 
 function getUnit(type) {
-    return localStorage.get(key)[type];
+    return localStorage.get(localStorageKey)[type];
 }
 
 function convert(type, value) {
