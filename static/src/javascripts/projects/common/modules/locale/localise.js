@@ -18,7 +18,8 @@ const options = {
     "currency": {
         "USD": "$",
         "GBP": "£",
-        "AUD": "AU$"
+        "AUD": "AU$",
+        "EUR": "€"
     },
     "distance": {
         "imperial": ["in", "ft", "mi"],
