@@ -52,6 +52,7 @@ System.config({
     "jasmine-sinon": "bower:jasmine-sinon@0.4.0",
     "lodash": "npm:lodash@2.4.1",
     "money": "github:openexchangerates/money.js@0.1.3",
+    "numeral": "github:adamwdraper/Numeral-js@1.5.3",
     "omniture": "vendor/omniture",
     "picturefill": "common/utils/picturefill",
     "quantities": "github:gentooboontoo/js-quantities@1.5.0",
