@@ -90,7 +90,7 @@ function bestFit(array) {
                      best.scalar > 100 ? 100 :
                      best.scalar > 50 ? 10 :
                      best.scalar > 1 ? 1 :
-                     0.5;
+                     0.1;
 
     return best.toPrec(rounding);
 }
