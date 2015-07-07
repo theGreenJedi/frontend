@@ -46,7 +46,7 @@ function bestFit(array) {
         return qty.scalar > range.min && qty.scalar < range.max;
     }).sort().reverse();
     const best = suitable[0] || array.sort().reverse()[0];
-    const rounding = best.scalar > 1000 ? 1000 :
+    const rounding = best.scalar > 10000 ? 1000 :
                      best.scalar > 100 ? 100 :
                      best.scalar > 10 ? 10 :
                      best.scalar > 1 ? 1 :
@@ -101,6 +101,7 @@ function localise($element) {
 
         case 'distance':
         case 'weight':
+        case 'volume':
             appendConversion(convert(type, `${value}${unit}`), $element);
             break;
 
