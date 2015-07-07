@@ -3,6 +3,11 @@ import fx from 'money';
 import Qty from 'quantities';
 import ajaxPromise from 'common/utils/ajax-promise';
 import storage from 'common/utils/storage';
+import template from 'common/utils/template';
+import localChooserTemplate from './local-chooser.html!text';
+import localChooserItemTemplate from './local-chooser-item.html!text';
+import bean from 'bean';
+import $ from 'common/utils/$';
 
 const localStorage = storage.local;
 const key = '3916c4516c3842e8922ac3880867d583';
@@ -21,6 +26,20 @@ const options = {
     "weight": {
         "imperial": ["oz", "lb", "ton"],
         "metric": ["g", "kg", "tonne"]
+    }
+}
+
+bean.on(document.body, 'click', '[data-localise]', toggleLocaleChooser);
+
+function toggleLocaleChooser(e) {
+    const $el = $(e.target);
+    if (!$('.popup', $el).length) {
+        var items = Object.keys(options[$el.attr('data-localise')]).map(function(item){
+            return template(localChooserItemTemplate, {title: options[$el.attr('data-localise')][item]});
+        }).join('');
+        $el[0].innerHTML += template(localChooserTemplate, {list: items});
+    } else {
+        $('.popup', $el).toggle();
     }
 }
 
