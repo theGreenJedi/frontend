@@ -26,7 +26,7 @@ function convert(type, value) {
     const qty = Qty(value);
     const conversions = locales[currentLocale][type].map(unit => qty.to(unit));
 
-    return bestFit(conversions);
+    return bestFit(conversions).toString();
 }
 
 function bestFit(array) {
