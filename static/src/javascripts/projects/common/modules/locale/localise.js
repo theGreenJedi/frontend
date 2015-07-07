@@ -8,8 +8,21 @@ const localStorage = storage.local;
 const key = '3916c4516c3842e8922ac3880867d583';
 const localStorageKey = 'localise.hackday';
 
-let currentLocale = 'en-us';
-let exchange = null;
+const options = {
+    "currency": {
+        "USD": "$",
+        "GBP": "£",
+        "AUD": "AU$"
+    },
+    "distance": {
+        "imperial": ["in", "ft", "mi"],
+        "metric": ["mm", "cm", "m", "km"]
+    },
+    "weight": {
+        "imperial": ["oz", "lb", "ton"],
+        "metric": ["g", "kg", "tonne"]
+    }
+}
 
 function getUnit(type) {
     return localStorage.get(localStorageKey)[type];
@@ -84,7 +97,7 @@ function localise($element) {
 }
 
 function appendConversion (s, $element) {
-    return $element.after(` (${s})`);
+    return $element.attr('data-localised-string', ` (${s})`);
 }
 
 export default localise;
