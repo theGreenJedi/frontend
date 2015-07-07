@@ -8,12 +8,14 @@ const key = '3916c4516c3842e8922ac3880867d583';
 const locales = {
     "en-us": {
         "currency": "USD",
+        "currencySymbol": "$",
         "distance": ["in", "ft", "mi"],
         "weight": ["oz", "lb", "ton"]
     },
 
     "en-au": {
         "currency": "AUD",
+        "currencySymbol": "AU$",
         "distance": ["mm", "cm", "m", "km"],
         "weight": ["mg", "g", "kg"]
     }
@@ -72,10 +74,12 @@ function localise($element) {
     switch (type) {
         case 'currency':
             getRates().then(function(fx) {
-                appendConversion(fx.convert(value, {
-                    from: unit,
-                    to: locales[currentLocale].currency
-                }), $element);
+                appendConversion(
+                    locales[currentLocale].currencySymbol +
+                    parseFloat(
+                        fx.convert(value, {from: unit, to: locales[currentLocale].currency})
+                    ).toFixed(2)
+                , $element);
             });
             break;
 

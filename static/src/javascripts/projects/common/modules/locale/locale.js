@@ -15,5 +15,5 @@ export default function() {
         localStorage.set(key, defaults);
     }
 
-    $('p').map((el) => localise($(el)))
+    $('[data-localise]').map((el) => localise($(el)));
 };
