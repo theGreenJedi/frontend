@@ -71,16 +71,21 @@ function getUnit(type) {
 function convert(type, value) {
     const qty = Qty(value);
     const conversions = getUnit(type).map(unit => qty.to(unit));
-
+    console.log(conversions);
     return bestFit(conversions).toString();
+}
+
+function qtySort(a, b) {
+    return b.scalar - a.scalar;
 }
 
 function bestFit(array) {
     const range = { min: 0.2, max: 1000 };
     const suitable = array.filter(qty => {
         return qty.scalar > range.min && qty.scalar < range.max;
-    }).sort().reverse();
-    const best = suitable[0] || array.sort().reverse()[0];
+    }).sort(qtySort).reverse();
+
+    const best = suitable[0] || array.sort(qtySort).reverse()[0];
     const rounding = best.scalar > 10000 ? 1000 :
                      best.scalar > 100 ? 100 :
                      best.scalar > 50 ? 10 :
