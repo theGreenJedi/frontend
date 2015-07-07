@@ -72,7 +72,6 @@ function getUnit(type) {
 function convert(type, value) {
     const qty = Qty(value);
     const conversions = getUnit(type).map(unit => qty.to(unit));
-    console.log(conversions);
     return bestFit(conversions).toString();
 }
 
@@ -152,7 +151,21 @@ function localise($element) {
 }
 
 function appendConversion (s, $element) {
-    return $element.attr('data-localised-string', `(${s})`);
+    const originalUnit = $element.attr('data-unit');
+    const type = $element.attr('data-localise');
+    let show;
+
+    if (type === 'currency') {
+        show = originalUnit !== localStorage.get(localStorageKey)['currency'];
+    } else {
+        show = !getUnit(type).some(unit => unit === originalUnit);
+    }
+
+    if (show) {
+        return $element.attr('data-localised-string', `(${s})`);
+    }
+
+    $element.attr('data-localised-string', '');
 }
 
 export default localise;
