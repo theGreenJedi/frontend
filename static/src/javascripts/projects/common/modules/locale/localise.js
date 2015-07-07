@@ -163,9 +163,10 @@ function appendConversion (s, $element) {
 
     if (show) {
         return $element.attr('data-localised-string', `(${s})`);
+    } else {
+        return $element.attr('data-localised-string', '(change unit?)');
     }
 
-    $element.attr('data-localised-string', '');
 }
 
 export default localise;
