@@ -21,7 +21,8 @@ const options = {
         "USD": "$",
         "AUD": "AU$",
         "CAD": "C$",
-        "JPY": "¥"
+        "JPY": "¥",
+        "PLN": "zl"
     },
     "distance": {
         "imperial": ["in", "ft", "mi"],
