@@ -3,8 +3,6 @@
 import React from 'react';
 import bonzo from 'bonzo';
 import bean from 'bean';
-import fastdom from 'fastdom';
-import classNames from 'classnames';
 
 import $ from 'common/utils/$';
 import _ from 'common/utils/_';
@@ -17,6 +15,7 @@ import Clues from './clues';
 import Controls from './controls';
 import HiddenInput from './hidden-input';
 import Grid from './grid';
+import StickyClue from './sticky-clue';
 import helpers from './helpers';
 import keycodes from './keycodes';
 import persistence from './persistence';
@@ -63,47 +62,19 @@ class Crossword extends React.Component {
         };
     }
 
+    /**
+     * Set up a scroll event that fires on window:throttledScroll with some
+     * extra params for sticky components.
+     */
     componentDidMount () {
-        // Sticky clue
-        const $stickyClueWrapper = $(React.findDOMNode(this.refs.stickyClueWrapper));
-        const $grid = $(React.findDOMNode(this.refs.grid));
-        const $game = $(React.findDOMNode(this.refs.game));
-        const isIOS = detect.isIOS();
-
         mediator.on('window:throttledScroll', () => {
-            const gridOffset = $grid.offset();
-            const gameOffset = $game.offset();
-            const stickyClueWrapperOffset = $stickyClueWrapper.offset();
-            const { scrollY } = window;
+            const gridOffset = $(React.findDOMNode(this.refs.grid)).offset();
+            const gameOffset = $(React.findDOMNode(this.refs.game)).offset();
+            const scrollYPastGame = window.scrollY - gameOffset.top;
 
-            fastdom.write(() => {
-                // Clear previous state
-                $stickyClueWrapper
-                    .css('top', '')
-                    .css('bottom', '')
-                    .removeClass('is-fixed');
+            gridOffset.bottom = gridOffset.top + gridOffset.height;
 
-                const scrollYPastGame = scrollY - gameOffset.top;
-
-                if (scrollYPastGame >= 0) {
-                    const gridOffsetBottom = gridOffset.top + gridOffset.height;
-
-                    if (scrollY > (gridOffsetBottom - stickyClueWrapperOffset.height)) {
-                        $stickyClueWrapper
-                            .css('top', 'auto')
-                            .css('bottom', 0);
-                    } else {
-                        // iOS doesn't support sticky things when the keyboard
-                        // is open, so we use absolute positioning and
-                        // programatically update the value of top
-                        if (isIOS) {
-                            $stickyClueWrapper.css('top', scrollYPastGame);
-                        } else {
-                            $stickyClueWrapper.addClass('is-fixed');
-                        }
-                    }
-                }
-            });
+            mediator.emit('crosswords:scroll', gridOffset, gameOffset, scrollYPastGame);
         });
     }
 
@@ -562,22 +533,7 @@ class Crossword extends React.Component {
         return (
             <div className={`crossword__container crossword__container--${this.props.data.crosswordType}`}>
                 <div className='crossword__container__game' ref='game'>
-                    <div className='crossword__sticky-clue-wrapper' ref='stickyClueWrapper'>
-                        <div
-                            className={classNames({
-                                'crossword__sticky-clue': true,
-                                'is-hidden': !focussed
-                            })}
-                            ref='stickyClue'>
-                            {focussed && (
-                                <div className='crossword__sticky-clue__inner'>
-                                    <div className='crossword__sticky-clue__inner__inner'>
-                                        <strong>{focussed.number} <span className='crossword__sticky-clue__direction'>{focussed.direction}</span></strong> {focussed.clue}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    <StickyClue focussed={focussed} />
                     <div className='crossword__container__grid-wrapper'>
                         <Grid
                             rows={this.rows}
