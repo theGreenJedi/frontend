@@ -30,13 +30,6 @@
             }
         }
 
-        .crossword__controls {
-            @include mq(tablet) {
-                margin-left: 0 - $size;
-                width: $size;
-            }
-        }
-
         .crossword__hidden-input-wrapper {
             width: percentage(1 / $cells);
             height: percentage(1 / $cells);

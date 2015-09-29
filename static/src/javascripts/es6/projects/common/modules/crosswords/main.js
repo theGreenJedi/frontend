@@ -558,19 +558,20 @@ class Crossword extends React.Component {
 
                         {anagramHelper}
                     </div>
+
+                    <Controls
+                        hasSolutions={this.hasSolutions()}
+                        clueInFocus={focussed}
+                        onCheat={this.onCheat}
+                        onSolution={this.onSolution}
+                        onCheck={this.onCheck}
+                        onCheckAll={this.onCheckAll}
+                        onClearAll={this.onClearAll}
+                        onClearSingle={this.onClearSingle}
+                        onToggleAnagramHelper={this.onToggleAnagramHelper}
+                    />
                 </div>
 
-                <Controls
-                    hasSolutions={this.hasSolutions()}
-                    clueInFocus={focussed}
-                    onCheat={this.onCheat}
-                    onSolution={this.onSolution}
-                    onCheck={this.onCheck}
-                    onCheckAll={this.onCheckAll}
-                    onClearAll={this.onClearAll}
-                    onClearSingle={this.onClearSingle}
-                    onToggleAnagramHelper={this.onToggleAnagramHelper}
-                />
                 <Clues
                     clues={this.cluesData()}
                     focusClue={this.focusClue}
