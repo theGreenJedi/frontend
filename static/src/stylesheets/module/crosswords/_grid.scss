@@ -13,6 +13,13 @@ $stickyClueHeight: $stickyClueVerticalPadding * 2 + ($stickyClueLineHeight * $st
         // Unset
         padding-top: 0;
     }
+
+    &.is-fixed {
+        @include mq($from: tablet, $until: desktop) {
+            position: fixed;
+            top: $gs-baseline;
+        }
+    }
 }
 
 // Wrapper for .crossword__sticky-clue because fixed positioning doesn't play

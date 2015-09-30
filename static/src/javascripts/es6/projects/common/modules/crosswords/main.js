@@ -16,6 +16,7 @@ import Controls from './controls';
 import HiddenInput from './hidden-input';
 import Grid from './grid';
 import StickyClue from './sticky-clue';
+import StickyWrapper from './sticky-wrapper';
 import helpers from './helpers';
 import keycodes from './keycodes';
 import persistence from './persistence';
@@ -68,13 +69,16 @@ class Crossword extends React.Component {
      */
     componentDidMount () {
         const offsets = {};
+        const $container = $(React.findDOMNode(this.refs.container));
         const $grid = $(React.findDOMNode(this.refs.grid));
         const $game = $(React.findDOMNode(this.refs.wrapper));
 
         /**
-         * Update grid/game offsets. Needs to happen on load and resize.
+         * Update grid/game offsets. Needs to happen on load, resize, and when
+         * a clue is first focussed (which changes the game height).
          */
         const updateOffsets = () => {
+            offsets.container = $container.offset();
             offsets.grid = $grid.offset();
             offsets.game = $game.offset();
             offsets.grid.bottom = offsets.grid.top + offsets.grid.height;
@@ -83,17 +87,21 @@ class Crossword extends React.Component {
         updateOffsets();
 
         mediator.on('window:throttledScroll', () => {
-            const scrollYPastGame = window.scrollY - offsets.game.top;
-            mediator.emit('crosswords:scroll', offsets.grid, offsets.game, scrollYPastGame);
+            mediator.emit('crosswords:scroll', offsets, window.scrollY);
         });
 
         mediator.on('window:resize', updateOffsets);
+        mediator.once('crosswords:focusCell', updateOffsets);
     }
 
     componentDidUpdate (prevProps, prevState) {
         // return focus to active cell after exiting anagram helper
         if (!this.state.showAnagramHelper && (this.state.showAnagramHelper !== prevState.showAnagramHelper)) {
             this.focusCurrentCell();
+        }
+
+        if (!prevState.cellInFocus && this.state.cellInFocus) {
+            mediator.emit('crosswords:focusCell');
         }
     }
 
@@ -543,8 +551,8 @@ class Crossword extends React.Component {
         );
 
         return (
-            <div className={`crossword__container crossword__container--${this.props.data.crosswordType}`}>
-                <div className='crossword__container__game' ref='game'>
+            <div className={`crossword__container crossword__container--${this.props.data.crosswordType}`} ref='container'>
+                <StickyWrapper ref='wrapper'>
                     <StickyClue focussed={focussed} />
                     <div className='crossword__container__grid-wrapper'>
                         <Grid
@@ -582,7 +590,7 @@ class Crossword extends React.Component {
                         onClearSingle={this.onClearSingle}
                         onToggleAnagramHelper={this.onToggleAnagramHelper}
                     />
-                </div>
+                </StickyWrapper>
 
                 <Clues
                     clues={this.cluesData()}
