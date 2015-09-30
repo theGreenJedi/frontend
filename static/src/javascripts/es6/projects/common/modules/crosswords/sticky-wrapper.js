@@ -24,8 +24,8 @@ export default class StickyWrapper extends React.Component {
                           scrollOffset + offsets.game.height <= offsets.container.height;
 
         if (inTheZone && !this.state.stuck) {
+            fastdom.write(() => this.$node.css('top', ''));
             this.setState({ stuck: true });
-            this.$node.css('top', '');
 
             return this.$node.addClass('is-fixed');
         }
@@ -33,8 +33,8 @@ export default class StickyWrapper extends React.Component {
         if (!inTheZone && this.state.stuck) {
             const y = scrollOffset <= 0 ? 0 : this.$node.offset().top - offsets.container.top;
 
+            fastdom.write(() => this.$node.css('top', y));
             this.setState({ stuck: false });
-            this.$node.css('top', y);
 
             return this.$node.removeClass('is-fixed');
         }
