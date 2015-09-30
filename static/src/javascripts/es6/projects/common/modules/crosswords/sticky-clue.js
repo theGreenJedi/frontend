@@ -11,7 +11,8 @@ export default class StickyClue extends React.Component {
         const $stickyClueWrapper = $(React.findDOMNode(this.refs.stickyClueWrapper));
         const isIOS = detect.isIOS();
 
-        mediator.on('crosswords:scroll', (gridOffset, gameOffset, scrollYPastGame) => {
+        mediator.on('crosswords:scroll', (offsets, scrollY) => {
+            const scrollYPastGame = scrollY - offsets.game.top;
             const stickyClueWrapperOffset = $stickyClueWrapper.offset();
 
             fastdom.write(() => {
@@ -22,10 +23,10 @@ export default class StickyClue extends React.Component {
                     .removeClass('is-fixed');
 
                 if (scrollYPastGame >= 0) {
-                    if (scrollY > (gridOffset.bottom - stickyClueWrapperOffset.height)) {
+                    if (scrollY > (offsets.grid.bottom - stickyClueWrapperOffset.height)) {
                         $stickyClueWrapper
-                        .css('top', 'auto')
-                        .css('bottom', 0);
+                            .css('top', 'auto')
+                            .css('bottom', 0);
                     } else {
                         // iOS doesn't support sticky things when the keyboard
                         // is open, so we use absolute positioning and
