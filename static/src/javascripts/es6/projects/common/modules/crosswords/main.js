@@ -67,15 +67,27 @@ class Crossword extends React.Component {
      * extra params for sticky components.
      */
     componentDidMount () {
+        const offsets = {};
+        const $grid = $(React.findDOMNode(this.refs.grid));
+        const $game = $(React.findDOMNode(this.refs.wrapper));
+
+        /**
+         * Update grid/game offsets. Needs to happen on load and resize.
+         */
+        const updateOffsets = () => {
+            offsets.grid = $grid.offset();
+            offsets.game = $game.offset();
+            offsets.grid.bottom = offsets.grid.top + offsets.grid.height;
+        };
+
+        updateOffsets();
+
         mediator.on('window:throttledScroll', () => {
-            const gridOffset = $(React.findDOMNode(this.refs.grid)).offset();
-            const gameOffset = $(React.findDOMNode(this.refs.game)).offset();
-            const scrollYPastGame = window.scrollY - gameOffset.top;
-
-            gridOffset.bottom = gridOffset.top + gridOffset.height;
-
-            mediator.emit('crosswords:scroll', gridOffset, gameOffset, scrollYPastGame);
+            const scrollYPastGame = window.scrollY - offsets.game.top;
+            mediator.emit('crosswords:scroll', offsets.grid, offsets.game, scrollYPastGame);
         });
+
+        mediator.on('window:resize', updateOffsets);
     }
 
     componentDidUpdate (prevProps, prevState) {
