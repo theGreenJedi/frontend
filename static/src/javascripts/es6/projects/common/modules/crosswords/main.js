@@ -81,6 +81,7 @@ class Crossword extends React.Component {
             offsets.container = $container.offset();
             offsets.grid = $grid.offset();
             offsets.game = $game.offset();
+            offsets.container.bottom = offsets.container.top + offsets.container.height;
             offsets.grid.bottom = offsets.grid.top + offsets.grid.height;
         };
 
