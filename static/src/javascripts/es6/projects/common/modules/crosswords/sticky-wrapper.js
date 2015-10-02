@@ -32,6 +32,15 @@ export default class StickyWrapper extends React.Component {
                 return handler(offsets, scrollY);
             }
         });
+
+        // reset any positioning on resize
+        mediator.on('window:resize', () => fastdom.write(() => {
+            if (detect.getBreakpoint() !== 'tablet') {
+                this.$node.removeClass('is-fixed');
+                this.$node.css('position', '');
+                this.$node.css('top', '');
+            }
+        }));
     }
 
     stickIOS(offsets, scrollY) {
