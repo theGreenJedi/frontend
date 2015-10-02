@@ -15,6 +15,8 @@ export default class StickyWrapper extends React.Component {
     }
 
     componentDidMount() {
+        this.$node = $(React.findDOMNode(this.refs.game));
+
         const handler = (() => {
             if (detect.isIOS()) {
                 this.$node.css('position', 'absolute');
@@ -24,10 +26,11 @@ export default class StickyWrapper extends React.Component {
             return this.stick;
         })().bind(this);
 
-        this.$node = $(React.findDOMNode(this.refs.game));
 
         mediator.on('crosswords:scroll', (offsets, scrollY) => {
-            return detect.getBreakpoint() === 'tablet' && handler(offsets, scrollY);
+            if (detect.getBreakpoint() === 'tablet') {
+                return handler(offsets, scrollY);
+            }
         });
     }
 
@@ -71,7 +74,7 @@ export default class StickyWrapper extends React.Component {
          * When out of the sticky zone, fix the grid to either the top or bottom
          * of the container depending on where we've scrolled to.
          */
-        if (!inTheZone) {
+        if (!inTheZone && this.state.stuck) {
             const y = scrollOffset < 0
                    ? 0
                    : offsets.container.height - offsets.game.height;
