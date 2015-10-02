@@ -55,20 +55,33 @@ export default class StickyWrapper extends React.Component {
         const inTheZone = scrollOffset >= 0 &&
                           scrollOffset + offsets.game.height <= offsets.container.height;
 
+        /**
+         * If the scroll position is within the sticky zone, set position: fixed.
+         */
         if (inTheZone && !this.state.stuck) {
-            fastdom.write(() => this.$node.css('top', ''));
             this.setState({ stuck: true });
 
-            return this.$node.addClass('is-fixed');
+            return fastdom.write(() => {
+                this.$node.addClass('is-fixed');
+                this.$node.css('top', '');
+            });
         }
 
-        if (!inTheZone && this.state.stuck) {
-            const y = scrollOffset <= 0 ? 0 : this.$node.offset().top - offsets.container.top;
+        /**
+         * When out of the sticky zone, fix the grid to either the top or bottom
+         * of the container depending on where we've scrolled to.
+         */
+        if (!inTheZone) {
+            const y = scrollOffset < 0
+                   ? 0
+                   : offsets.container.height - offsets.game.height;
 
-            fastdom.write(() => this.$node.css('top', y));
             this.setState({ stuck: false });
 
-            return this.$node.removeClass('is-fixed');
+            return fastdom.write(() => {
+                this.$node.removeClass('is-fixed');
+                this.$node.css('top', y);
+            });
         }
     }
 
