@@ -33,7 +33,7 @@ export default class Grid extends React.Component {
                       y={top}
                       width={width}
                       height={constants.cellSize}
-                      key={`sep_${x}_${y}`}></rect>
+                      key={`sep_wa_${x}_${y}`}></rect>
             );
         } else if (direction === 'down') {
             const height = 1;
@@ -42,7 +42,7 @@ export default class Grid extends React.Component {
                       y={top - borderWidth - height}
                       width={constants.cellSize}
                       height={height}
-                      key={`sep_${x}_${y}`}></rect>
+                      key={`sep_wd_${x}_${y}`}></rect>
             );
         }
     }
@@ -61,7 +61,7 @@ export default class Grid extends React.Component {
                       y={top + (constants.cellSize / 2) + (height / 2)}
                       width={width}
                       height={height}
-                      key={`sep_${x}_${y}`}></rect>
+                      key={`sep_ha_${x}_${y}`}></rect>
             );
         } else if (direction === 'down') {
             const width = 1;
@@ -71,7 +71,7 @@ export default class Grid extends React.Component {
                       y={top - (borderWidth / 2) - (height / 2)}
                       width={width}
                       height={height}
-                      key={`sep_${x}_${y}`}></rect>
+                      key={`sep_hd_${x}_${y}`}></rect>
             );
         }
     }
