@@ -8,9 +8,8 @@ RUN gem install bundler
 
 # Install gems
 COPY Gemfile /tmp/Gemfile
-ENV BUNDLE_GEMFILE=/tmp/Gemfile
-RUN bundle install --system
-RUN rm /tmp/Gemfile
+COPY Gemfile.lock /tmp/Gemfile.lock
+RUN cd /tmp; bundle install --system
 
 RUN mkdir /frontend
 WORKDIR /frontend
