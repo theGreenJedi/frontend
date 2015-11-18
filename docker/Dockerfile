@@ -15,3 +15,5 @@ RUN mkdir /frontend
 WORKDIR /frontend
 
 EXPOSE 9000
+
+ENTRYPOINT /frontend/sbt
