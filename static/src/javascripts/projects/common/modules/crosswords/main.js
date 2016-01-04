@@ -755,5 +755,10 @@ define([
                 throw 'JavaScript crossword without associated data in data-crossword-data';
             }
         });
+
+        $('.js-print-crossword').each(function (element) {
+            bean.on(element, 'click', window.print.bind(window));
+            bonzo(element).removeClass('js-print-crossword');
+        });
     };
 });
