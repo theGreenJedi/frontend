@@ -137,23 +137,19 @@ define([
             },
             $expandablev2 = $.create(template(expandableV2Tpl, { data: merge(this.params, showmoreArrow, showmorePlus, videoDesktop, scrollingbg) }));
 
-        var domPromise = new Promise(function (resolve) {
-            fastdom.write(function () {
+        var domPromise = fastdom.write(function () {
 
-                this.$ad     = $('.ad-exp--expand', $expandablev2).css('height', this.closedHeight);
-                this.$button = $('.ad-exp__open', $expandablev2);
+            this.$ad     = $('.ad-exp--expand', $expandablev2).css('height', this.closedHeight);
+            this.$button = $('.ad-exp__open', $expandablev2);
 
-                $('.ad-exp-collapse__slide', $expandablev2).css('height', this.closedHeight);
+            $('.ad-exp-collapse__slide', $expandablev2).css('height', this.closedHeight);
 
-                if (this.params.trackingPixel) {
-                    this.$adSlot.before('<img src="' + this.params.trackingPixel + this.params.cacheBuster + '" class="creative__tracking-pixel" height="1px" width="1px"/>');
-                }
+            if (this.params.trackingPixel) {
+                this.$adSlot.before('<img src="' + this.params.trackingPixel + this.params.cacheBuster + '" class="creative__tracking-pixel" height="1px" width="1px"/>');
+            }
 
-                $expandablev2.appendTo(this.$adSlot);
-
-                resolve();
-            }.bind(this));
-        }.bind(this));
+            $expandablev2.appendTo(this.$adSlot);
+        }, this);
 
         if (!storage.local.get('gu.commercial.expandable.' + this.params.ecid)) {
             mediator.on('window:throttledScroll', this.listener);
@@ -165,7 +161,7 @@ define([
                 $('.ad-exp__open-chevron').toggleClass('chevron-down');
                 this.$ad.css('height', this.isClosed ? this.openedHeight : this.closedHeight);
                 this.isClosed = !this.isClosed;
-            }.bind(this));
+            }, this);
         }.bind(this));
 
         if (ExpandableV2.hasScrollEnabled) {

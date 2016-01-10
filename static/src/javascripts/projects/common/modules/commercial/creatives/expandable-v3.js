@@ -160,8 +160,7 @@ define([
             },
             $expandableV3 = $.create(template(expandableV3Tpl, { data: merge(this.params, showmoreArrow, showmorePlus, videoDesktop, scrollingbg) }));
 
-        var domPromise = new Promise(function (resolve) {
-            fastdom.write(function () {
+        var domPromise = fastdom.write(function () {
 
                 this.$ad     = $('.ad-exp--expand', $expandableV3).css('height', this.closedHeight);
                 this.$button = $('.ad-exp__open', $expandableV3);
@@ -173,9 +172,7 @@ define([
                 }
 
                 $expandableV3.appendTo(this.$adSlot);
-                resolve();
-            }.bind(this));
-        }.bind(this));
+        }, this);
 
         mediator.on('window:throttledScroll', this.listener);
 
@@ -186,7 +183,7 @@ define([
                 this.$ad.css('height', this.isClosed ? this.openedHeight : this.closedHeight);
                 this.isClosed = !this.isClosed;
                 this.initialExpandCounter = true;
-            }.bind(this));
+            }, this);
         }.bind(this));
 
         if (ExpandableV3.hasScrollEnabled) {

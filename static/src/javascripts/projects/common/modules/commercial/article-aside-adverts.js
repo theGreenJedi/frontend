@@ -39,29 +39,32 @@ define([
         $componentsContainer = $('.js-components-container', '.js-secondary-column');
         $adSlotContainer = $(opts.adSlotContainerSelector);
 
-        return new Promise(function (resolve) {
-            idleFastdom.read(function () {
-                if (
-                    !config.page.isImmersive && (
-                    !$mainCol.length ||
-                    (config.page.section !== 'football' && $mainCol.dim().height >= 1300) ||
-                    (config.page.section === 'football' && $mainCol.dim().height >= 2200))
-                ) {
-                    adType = 'right-sticky';
-                } else if ($mainCol.dim().height >= 600) {
-                    adType = 'right';
-                } else {
-                    adType = 'right-small';
+        return idleFastdom.read(function () {
+            return $mainCol.dim().height;
+        }).then(function (mainColHeight) {
+            if (
+                !config.page.isImmersive && (
+                !$mainCol.length ||
+                (config.page.section !== 'football' && mainColHeight >= 1300) ||
+                (config.page.section === 'football' && mainColHeight >= 2200))
+            ) {
+                adType = 'right-sticky';
+            } else if (mainColHeight >= 600) {
+                adType = 'right';
+            } else {
+                adType = 'right-small';
+            }
+
+            return adType;
+        }).then(function (adType) {
+            return idleFastdom.write(function () {
+                if (config.page.contentType === 'Article' && config.page.sponsorshipType === 'advertisement-features') {
+                    $componentsContainer.addClass('u-h');
                 }
-                idleFastdom.write(function () {
-                    if (config.page.contentType === 'Article' && config.page.sponsorshipType === 'advertisement-features') {
-                        $componentsContainer.addClass('u-h');
-                    }
 
-                    $adSlotContainer.append(createAdSlot(adType, 'mpu-banner-ad'));
+                $adSlotContainer.append(createAdSlot(adType, 'mpu-banner-ad'));
 
-                    resolve($adSlotContainer);
-                });
+                return $adSlotContainer;
             });
         });
     }

@@ -21,7 +21,7 @@ requirejs.config({
         enhancer:     'components/enhancer/enhancer',
         EventEmitter: 'components/eventEmitter/EventEmitter',
         fastclick:    'components/fastclick/fastclick',
-        fastdom:      'components/fastdom/index',
+        fastdom:      'common/utils/fastdom-promise',
         fence:        'components/fence/fence',
         lodash:       'components/lodash-amd',
         picturefill:  'projects/common/utils/picturefill',

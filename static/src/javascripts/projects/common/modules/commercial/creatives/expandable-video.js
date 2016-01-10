@@ -56,20 +56,17 @@ define([
                     '<iframe id="YTPlayer" width="100%" height="' + videoHeight + '" src="' + this.params.YoutubeVideoURL + '?showinfo=0&amp;rel=0&amp;controls=0&amp;fs=0&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" class="expandable-video"></iframe>' : ''
             },
             $ExpandableVideo = $.create(template(ExpandableVideoTpl, { data: merge(this.params, showmoreArrow, showmorePlus, videoSource) })),
-            domPromise = new Promise(function (resolve) {
-                fastdom.write(function () {
+            domPromise = fastdom.write(function () {
 
-                    this.$ad = $('.ad-exp--expand', $ExpandableVideo).css('height', this.closedHeight);
+                this.$ad = $('.ad-exp--expand', $ExpandableVideo).css('height', this.closedHeight);
 
-                    $('.ad-exp-collapse__slide', $ExpandableVideo).css('height', this.closedHeight);
+                $('.ad-exp-collapse__slide', $ExpandableVideo).css('height', this.closedHeight);
 
-                    if (this.params.trackingPixel) {
-                        this.$adSlot.before('<img src="' + this.params.trackingPixel + this.params.cacheBuster + '" class="creative__tracking-pixel" height="1px" width="1px"/>');
-                    }
-                    $ExpandableVideo.appendTo(this.$adSlot);
-                    resolve();
-                }.bind(this));
-            }.bind(this));
+                if (this.params.trackingPixel) {
+                    this.$adSlot.before('<img src="' + this.params.trackingPixel + this.params.cacheBuster + '" class="creative__tracking-pixel" height="1px" width="1px"/>');
+                }
+                $ExpandableVideo.appendTo(this.$adSlot);
+            }, this);
 
         bean.on(this.$adSlot[0], 'click', '.ad-exp__open', function () {
             fastdom.write(function () {
@@ -88,7 +85,7 @@ define([
                 setTimeout(function () {
                     $('#YTPlayer').attr('src', videoSrcAutoplay);
                 }, 1000);
-            }.bind(this));
+            }, this);
         }.bind(this));
 
         return domPromise;

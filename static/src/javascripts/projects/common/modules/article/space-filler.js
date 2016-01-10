@@ -43,15 +43,9 @@ define([
             }
 
             function insertionPromise(para) {
-                return new Promise(function (resolve, reject) {
-                    idleFastdom.write(function () {
-                        try {
-                            writer(para);
-                            resolve(true);
-                        } catch (e) {
-                            reject(e);
-                        }
-                    });
+                return idleFastdom.write(function () {
+                    writer(para);
+                    return true;
                 });
             }
 

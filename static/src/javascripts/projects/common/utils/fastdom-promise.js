@@ -1,5 +1,5 @@
 define([
-    'fastdom',
+    'components/fastdom/index',
     'Promise'
 ], function (
     fastdom,

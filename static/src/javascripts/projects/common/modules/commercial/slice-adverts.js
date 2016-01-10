@@ -77,21 +77,17 @@ define([
                         $tabletAdSlot = bonzo(createAdSlot(adName, 'container-inline'))
                             .addClass('ad-slot--not-mobile');
 
-                    return new Promise(function (resolve) {
-                        idleFastdom.write(function () {
-                            // add a tablet+ ad to the slice
-                            if (detect.getBreakpoint() !== 'mobile') {
-                                $adSlice
-                                    .removeClass('fc-slice__item--no-mpu')
-                                    .append($tabletAdSlot);
-                            } else {
-                                // add a mobile advert after the container
-                                $mobileAdSlot
-                                    .insertAfter($.ancestor($adSlice[0], 'fc-container'));
-                            }
-
-                            resolve(null);
-                        });
+                    return idleFastdom.write(function () {
+                        // add a tablet+ ad to the slice
+                        if (detect.getBreakpoint() !== 'mobile') {
+                            $adSlice
+                                .removeClass('fc-slice__item--no-mpu')
+                                .append($tabletAdSlot);
+                        } else {
+                            // add a mobile advert after the container
+                            $mobileAdSlot
+                                .insertAfter($.ancestor($adSlice[0], 'fc-container'));
+                        }
                     });
                 }).valueOf()
             ).then(function () {

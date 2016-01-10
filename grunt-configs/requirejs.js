@@ -12,7 +12,7 @@ module.exports = function (grunt, options) {
                 domReady:             'components/domready/ready',
                 enhancer:             'components/enhancer/enhancer',
                 EventEmitter:         'components/eventEmitter/EventEmitter',
-                fastdom:              'components/fastdom/index',
+                fastdom:              'common/utils/fastdom-promise',
                 fence:                'components/fence/fence',
                 lodash:               'components/lodash-amd',
                 picturefill:          'projects/common/utils/picturefill',

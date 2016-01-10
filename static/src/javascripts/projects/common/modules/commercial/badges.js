@@ -66,13 +66,11 @@ define([
 
             addPreBadge($adSlot, badgeConfig.header, opts.sponsor);
 
-            return new Promise(function (resolve) {
-                idleFastdom.write(function () {
-                    $('.js-container__header', container)
-                        .after($adSlot);
+            return idleFastdom.write(function () {
+                $('.js-container__header', container)
+                    .after($adSlot);
 
-                    resolve($adSlot);
-                });
+                return $adSlot;
             });
         },
         init = function () {
