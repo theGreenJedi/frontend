@@ -68,6 +68,12 @@
         margin-left: 0;
     }
 
+    &.content__main-column--full-width {
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
     &.content__main-column--media,
     &.content__main-column--gallery,
     &.content__main-column--wide {
