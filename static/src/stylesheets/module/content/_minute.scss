@@ -1,7 +1,27 @@
+.gs-container--minutearticle {
+    background-color: colour(brand);
+}
+
 .minutearticle-blocks {
     .block {
+        background-color: #104F75;
+        border-top: 4px solid #d91b20;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
         float: left;
-        min-height: 530px;
-        width: 33%;
+        height: 100vh;
+        padding-bottom: 0;
+        width: 100%;
+
+        @include mq(wide) {
+            height: 500px;
+            width: gs-span(5);
+            margin: 0 $gs-gutter;
+        }
+    }
+
+    .block-elements {
+        flex: 2;
     }
 }

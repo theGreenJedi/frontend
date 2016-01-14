@@ -76,6 +76,7 @@ $f-serif-headline: 'Guardian Egyptian Web', 'Guardian Text Egyptian Web', Georgi
 $frontend-palette: (
 
     neutral-2-contrasted:   darken(guss-colour(neutral-2, $pasteup-palette), 3%),
+    brand:                  guss-colour(guardian-brand, $pasteup-palette),
 
 // Tones
 // =============================================================================
