@@ -1,4 +1,4 @@
-.gs-container--minutearticle {
+.gs-container--minute-article {
     background-color: colour(brand);
 }
 
@@ -6,41 +6,41 @@
     padding-top: 0; // TODO - We don't want this override, break out immersive header styles so we don't need to use content--immersive
 }
 
-.minutearticle-blocks {
+.minute-article-blocks {
     padding-top: $gs-baseline * 2;
-
-    .block {
-        // TODO Make minutearticle blocks a top level class
-        background-color: #104f75;
-        border-top: 4px solid #d91b20;
-        border-bottom: 0 none;
-        box-sizing: border-box;
-        color: #ffffff;
-        display: flex;
-        flex-direction: column;
-        float: left;
-        height: 100vh;
-        margin-bottom: $gs-baseline * 2;
-        padding: $gs-baseline $gs-gutter 0;
-        width: 100%;
-
-        @include mq(wide) {
-            height: 500px;
-            width: gs-span(5);
-            margin-left: $gs-gutter / 2;
-            margin-right: $gs-gutter / 2;
-
-            &:nth-child(3n-2) {
-                margin-left: $gs-gutter;
-            }
-
-            &:nth-child(3n) {
-                margin-right: $gs-gutter;
-            }
-        }
-    }
 
     .block-elements {
         flex: 2;
+    }
+}
+
+.block--minute-article {
+    // TODO Make minutearticle blocks a top level class
+    background-color: #104f75;
+    border-top: 4px solid #d91b20;
+    border-bottom: 0 none;
+    box-sizing: border-box;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    float: left;
+    height: 100vh;
+    margin-bottom: $gs-baseline * 2;
+    padding: $gs-baseline $gs-gutter 0;
+    width: 100%;
+
+    @include mq(wide) {
+        height: 500px;
+        width: gs-span(5);
+        margin-left: $gs-gutter / 2;
+        margin-right: $gs-gutter / 2;
+
+        &:nth-child(3n-2) {
+            margin-left: $gs-gutter;
+        }
+
+        &:nth-child(3n) {
+            margin-right: $gs-gutter;
+        }
     }
 }
