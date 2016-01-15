@@ -27,7 +27,7 @@ case class MinuteCleaner(article: model.Article) extends HtmlCleaner {
   override def clean(document: Document): Document = {
     if (article.isUSMinute) {
       document.getElementsByClass("block").foreach { block =>
-        block.addClass("block--minutearticle")
+        block.addClass("block--minute-article")
         block.removeClass("block")
 
         ParentClasses.foldLeft(Set(): Set[String]) { case (classes, (childClass, parentClass)) =>
