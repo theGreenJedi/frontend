@@ -10,7 +10,7 @@ import common._
 import conf.Configuration
 import conf.switches.Switches.{FacebookShareUseTrailPicFirstSwitch, LongCacheSwitch}
 import cricketPa.CricketTeams
-import layout.ContentWidths.GalleryMedia
+import layout.ContentWidths.{ImmersiveMedia, BodyMedia, LiveBlogMedia, GalleryMedia}
 import model.liveblog.BodyBlock
 import ophan.SurgingContentAgent
 import org.joda.time.DateTime
