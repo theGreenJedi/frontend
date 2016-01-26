@@ -20,9 +20,8 @@ trait LinkTo extends Logging {
   lazy val host = Configuration.site.host
 
   private val ProdURL = "^http://www.theguardian.com/.*$".r
-  private val GuardianUrl = "^(http://www.theguardian.com)?(/.*)?$".r
+  private val GuardianUrl = "^(https?://www.theguardian.com)?(/.*)?$".r
   private val RssPath = "^(/.+)?(/rss)".r
-  private val AmpPath = s"^(/.+)(${Requests.AMP_SUFFIX})$$".r
   private val TagPattern = """^([\w\d-]+)/([\w\d-]+)$""".r
 
   /**
@@ -43,26 +42,26 @@ trait LinkTo extends Logging {
 
   case class ProcessedUrl(url: String, shouldNoFollow: Boolean = false)
 
-  def processUrl(url: String, edition: Edition) = url match {
+  def processUrl(url: String, edition: Edition)(implicit request: RequestHeader) = url match {
     case url if url.startsWith("//") =>
       ProcessedUrl(url)
     case RssPath(path, format) =>
       ProcessedUrl(urlFor(path, edition) + format)
-    case AmpPath(path, format) =>
-      ProcessedUrl(urlFor(path, edition, secure = true) + format)
     case GuardianUrl(_, path) =>
       ProcessedUrl(urlFor(path, edition))
     case otherUrl =>
       ProcessedUrl(otherUrl, true)
   }
 
-  private def urlFor(path: String, edition: Edition, secure: Boolean = false): String = {
+  private def urlFor(path: String, edition: Edition)(implicit request: RequestHeader): String = {
     val pathString = Option(path).getOrElse("")
     val id = if (pathString.startsWith("/")) pathString.substring(1) else pathString
     val editionalisedPath = Editionalise(clean(id), edition)
     val url = s"$host/$editionalisedPath"
+    val https = request.isAmp || isHttpsEnabled(editionalisedPath)
+
     url match {
-      case ProdURL() if (isHttpsEnabled(editionalisedPath) || secure) =>  url.replace("http://", "https://")
+      case ProdURL() if https => url.replace("http://", "https://")
       case _ => url
     }
   }

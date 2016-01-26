@@ -4,10 +4,6 @@ import common.Edition
 import play.api.mvc.RequestHeader
 
 trait Requests {
-
-  val AMP_SUFFIX = "/amp"
-
-
   implicit class RichRequestHeader(r: RequestHeader) {
 
     def getParameter(name: String): Option[String] = r.queryString.get(name).flatMap(_.headOption)
@@ -18,13 +14,15 @@ trait Requests {
 
     def getBooleanParameter(name: String): Option[Boolean] = getParameter(name).map(_.toBoolean)
 
+    lazy val view: Option[String] = getParameter("view")
+
     lazy val isJson: Boolean = r.getQueryString("callback").isDefined || r.path.endsWith(".json")
 
     lazy val isRss: Boolean = r.path.endsWith("/rss")
 
-    lazy val isAmp: Boolean = r.path.endsWith(AMP_SUFFIX)
+    lazy val isAmp: Boolean = view.contains("amp")
 
-    lazy val pathWithoutModifiers: String = if (isAmp) r.path.stripSuffix(AMP_SUFFIX) else r.path.stripSuffix("/all")
+    lazy val pathWithoutModifiers: String = r.path.stripSuffix("/all")
 
     lazy val hasParameters: Boolean = r.queryString.nonEmpty
 
