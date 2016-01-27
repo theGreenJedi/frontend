@@ -26,7 +26,7 @@ requirejs.config({
         lodash:       'components/lodash-amd',
         picturefill:  'projects/common/utils/picturefill',
         Promise:      'components/when/Promise',
-        qwery:        'components/qwery/qwery',
+        qwery:        'projects/common/utils/qwery-alt',
         raven:        'components/raven-js/raven',
         reqwest:      'components/reqwest/reqwest',
         // Test specific paths

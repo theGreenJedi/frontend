@@ -17,7 +17,7 @@ module.exports = function (grunt, options) {
                 lodash:               'components/lodash-amd',
                 picturefill:          'projects/common/utils/picturefill',
                 Promise:              'components/when/Promise',
-                qwery:                'components/qwery/qwery',
+                qwery:                'projects/common/utils/qwery-alt',
                 raven:                'components/raven-js/raven',
                 classnames:           'components/classnames/index',
                 reqwest:              'components/reqwest/reqwest',

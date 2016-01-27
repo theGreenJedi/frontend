@@ -25,7 +25,7 @@ window.curlConfig = {
             lodash:                         'components/lodash-amd',
             picturefill:                    'projects/common/utils/picturefill',
             Promise:                        'components/when/Promise',
-            qwery:                          'components/qwery/qwery',
+            qwery:                          'projects/common/utils/qwery-alt',
             raven:                          'components/raven-js/raven',
             reqwest:                        'components/reqwest/reqwest',
             'facebook.js':                  '//connect.facebook.net/en_US/all.js',
