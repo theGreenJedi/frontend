@@ -9,6 +9,9 @@ define([
       var sig = '';
       for (var i = 0; i < arguments.length; i++) {
           sig += Object.prototype.toString.call(arguments[i]);
+          if (i === 1 && !(arguments[i] instanceof Element) && arguments[i] !== undefined) {
+              console.trace();
+          }
       }
       signatures[sig] = (signatures[sig] || 0) + 1;
       var result = oldQwery.apply(null, arguments);

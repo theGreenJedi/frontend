@@ -35,7 +35,7 @@ define([
         },
 
         copyMegaNavMenu: function () {
-            var megaNavCopy = $.create($('.js-mega-nav').html()),
+            var megaNavCopy = $.create($('.js-mega-nav').html())[0],
                 placeholder = $('.js-mega-nav-placeholder');
 
             fastdom.write(function () {

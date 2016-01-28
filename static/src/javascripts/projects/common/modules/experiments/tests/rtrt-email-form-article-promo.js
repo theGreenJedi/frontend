@@ -34,7 +34,7 @@ define([
         this.dataLinkNames = '';
         this.idealOutcome = 'Email sign-up is increased';
 
-        var $articleBody = $('.js-article__body'),
+        var articleBody = '.js-article__body',
             isParagraph = function ($el) {
                 return $el.nodeName && $el.nodeName === 'P';
             };
@@ -46,7 +46,7 @@ define([
                 urlRegex = new RegExp('^https?:\/\/' + escapedHost + '\/(uk\/|us\/|au\/|international\/)?([a-z-])+$', 'gi'),
                 browser = detect.getUserAgent.browser,
                 version = detect.getUserAgent.version,
-                allArticleEls = $('> *', $articleBody),
+                allArticleEls = $(articleBody + '> *'),
                 lastFiveElsParas = every([].slice.call(allArticleEls, allArticleEls.length - 5), isParagraph),
                 keywords = config.page.keywords ? config.page.keywords.split(',') : '',
                 pageIsBlacklisted = contains(keywords, 'NHS');
@@ -59,7 +59,7 @@ define([
                     !(browser === 'MSIE' && contains(['7','8','9'], version + ''));
         };
 
-        function injectEmailForm($position, typeOfInsert) {
+        function injectEmailForm(position, typeOfInsert) {
             var listId,
                 iframe;
 
@@ -88,7 +88,7 @@ define([
             });
 
             fastdom.write(function () {
-                $(iframe)[typeOfInsert || 'appendTo']($position);
+                $(iframe)[typeOfInsert || 'appendTo'](position);
             });
         }
 
@@ -96,13 +96,13 @@ define([
             {
                 id: 'bottom-of-page',
                 test: function () {
-                    injectEmailForm($articleBody);
+                    injectEmailForm(document.querySelector(articleBody));
                 }
             },
             {
                 id: 'three-paras-from-bottom',
                 test: function () {
-                    var articleParas = $('> p', $articleBody),
+                    var articleParas = $(articleBody + '> p'),
                         para = $(articleParas[articleParas.length - 3]); // This is a little bit heavy handed but should be ok for test.
 
                     injectEmailForm(para, 'insertBefore');

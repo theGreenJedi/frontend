@@ -70,8 +70,8 @@ define([
         this.$els.bannerBelowNav   = $('.js-top-banner-below-nav');
         this.$els.main             = $('.js-maincontent');
         this.$els.navHeader        = $('.js-navigation-header');
-        this.$els.burgerIcon       = $('.js-navigation-toggle', this.$els.navHeader);
-        this.$els.navigation       = $('.js-navigation', this.$els.navHeader);
+        this.$els.burgerIcon       = $('.js-navigation-toggle', this.$els.navHeader[0]);
+        this.$els.navigation       = $('.js-navigation', this.$els.navHeader[0]);
         this.$els.navigationGlobal = $('.js-global-navigation');
         this.$els.popupSearch      = $('.js-popup--search');
         this.$els.window           = $(window);
