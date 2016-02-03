@@ -56,7 +56,7 @@ object Dependencies {
   val romeModules = "org.rometools" % "rome-modules" % "1.0"
   val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.11.5" % "test"
   val scalajTime = "org.scalaj" % "scalaj-time_2.10.2" % "0.7"
-  val scalaTest = "org.scalatest" %% "scalatest" % "2.2.6" % Test
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.0.0-M15" % Test
   val scalaTestPlus = "org.scalatestplus" %% "play" % "1.4.0" % Test
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.6"
   val scalaUri = "com.netaporter" % "scala-uri_2.11" % "0.4.11"
