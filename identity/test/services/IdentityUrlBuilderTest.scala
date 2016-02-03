@@ -3,7 +3,7 @@ package services
 import org.scalatest.path
 import conf.IdentityConfiguration
 import org.scalatest.Matchers
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import org.mockito.Mockito._
 import idapiclient.TrackingData
 

@@ -10,8 +10,8 @@ import formstack.{FormstackApi, FormstackForm}
 import idapiclient.{IdApiClient, ScGuU, TrackingData}
 import org.mockito.Matchers
 import org.mockito.Mockito._
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.{ShouldMatchers, path}
+import org.scalatest.mockito.MockitoSugar
+import org.scalatest.path
 import play.api.mvc.RequestHeader
 import play.api.test.Helpers._
 import services.{IdentityRequest, _}
@@ -20,7 +20,7 @@ import test.{Fake, TestRequest}
 import scala.concurrent.Future
 
 
-class FormstackControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar {
+class FormstackControllerTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar {
   val returnUrlVerifier = mock[ReturnUrlVerifier]
   val requestParser = mock[IdRequestParser]
   val idUrlBuilder = mock[IdentityUrlBuilder]

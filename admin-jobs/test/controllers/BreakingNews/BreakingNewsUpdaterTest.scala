@@ -10,15 +10,15 @@ import org.joda.time.DateTime
 import org.mockito.Matchers._
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import org.scalatest.time.{Seconds, Span}
-import org.scalatest.{DoNotDiscover, Matchers, WordSpec}
+import org.scalatest.{DoNotDiscover, WordSpec}
 import play.api.libs.json.{JsResultException, JsValue, Json}
 import test.ConfiguredTestSuite
 
 import scala.concurrent.duration._
 
-@DoNotDiscover class BreakingNewsUpdaterTest extends WordSpec with Matchers with ConfiguredTestSuite with MockitoSugar with ScalaFutures {
+@DoNotDiscover class BreakingNewsUpdaterTest extends WordSpec with org.scalatest.Matchers with ConfiguredTestSuite with MockitoSugar with ScalaFutures {
   implicit val actorTimeout = Timeout(30.seconds)
   implicit override val patienceConfig = PatienceConfig(timeout = Span(5, Seconds), interval = Span(1, Seconds))
 

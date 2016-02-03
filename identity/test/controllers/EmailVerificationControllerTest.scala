@@ -1,9 +1,9 @@
 package controllers
 
-import org.scalatest.{ShouldMatchers, path}
+import org.scalatest.path
 import services._
 import idapiclient.IdApiClient
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import test.{TestRequest, Fake}
 import play.api.mvc.{Request, RequestHeader}
 import scala.concurrent.Future
@@ -14,7 +14,7 @@ import idapiclient.TrackingData
 import client.Error
 import actions.AuthenticatedActions
 
-class EmailVerificationControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar {
+class EmailVerificationControllerTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar {
   val api = mock[IdApiClient]
   val idRequestParser = mock[IdRequestParser]
   val authenticatedActions = mock[AuthenticatedActions]

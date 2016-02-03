@@ -3,7 +3,7 @@ package football
 import common.ExecutionContexts
 import controllers.admin.TablesController
 import football.model.PA
-import org.scalatest.{DoNotDiscover, ShouldMatchers, FreeSpec}
+import org.scalatest.{DoNotDiscover, Matchers, FreeSpec}
 import play.api.mvc.AnyContentAsFormUrlEncoded
 import play.api.test._
 import play.api.test.Helpers._
@@ -13,7 +13,7 @@ import scala.annotation.tailrec
 import football.services.GetPaClient
 import scala.language.postfixOps
 
-@DoNotDiscover class TablesControllerTest extends FreeSpec with GetPaClient with ExecutionContexts with ShouldMatchers with ConfiguredTestSuite {
+@DoNotDiscover class TablesControllerTest extends FreeSpec with GetPaClient with ExecutionContexts with Matchers with ConfiguredTestSuite {
 
   "test tables index page loads with leagues" in {
     val Some(result) = route(FakeRequest(GET, "/admin/football/tables"))

@@ -1,8 +1,8 @@
 package controllers
 
 import org.scalatest.path
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.{Matchers => ShouldMatchers}
+import org.scalatest.mockito.MockitoSugar
+import org.scalatest.{Matchers => Matchers}
 import services._
 import org.mockito.Mockito._
 import org.mockito.Matchers._
@@ -24,7 +24,7 @@ import idapiclient.TrackingData
 import play.api.mvc.Cookie
 
 
-class SignoutControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar{
+class SignoutControllerTest extends path.FreeSpec with Matchers with MockitoSugar{
 
   val returnUrlVerifier = mock[ReturnUrlVerifier]
   val conf = new IdentityConfiguration

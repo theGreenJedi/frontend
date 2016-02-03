@@ -3,12 +3,12 @@ package controllers
 import actions.AuthenticatedActions.AuthRequest
 import com.gu.identity.cookie.GuUCookieData
 import org.mockito.Matchers
-import org.scalatest.{ShouldMatchers, path}
+import org.scalatest.path
 import services._
 import services.{ReturnUrlVerifier, IdRequestParser, IdentityUrlBuilder}
 import idapiclient.{ScGuU, IdApiClient}
 import conf.{FrontendIdentityCookieDecoder, IdentityConfiguration}
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import test.{FakeCSRFRequest, TestRequest, Fake}
 import play.api.mvc.{RequestHeader, Request, Result}
 import scala.concurrent.Future
@@ -27,7 +27,7 @@ import actions.AuthenticatedActions
 import play.api.i18n.Messages.Implicits.applicationMessagesApi
 import play.api.Play.current
 
-class EmailControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar {
+class EmailControllerTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar {
   val returnUrlVerifier = mock[ReturnUrlVerifier]
   val conf = mock[IdentityConfiguration]
   val api = mock[IdApiClient]

@@ -1,8 +1,8 @@
 package controllers
 
 import org.scalatest.path
-import org.scalatest.{Matchers => ShouldMatchers}
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.{Matchers => _}
+import org.scalatest.mockito.MockitoSugar
 import org.mockito.Matchers._
 import org.mockito.Mockito._
 import idapiclient.{TrackingData, IdApiClient}
@@ -17,7 +17,7 @@ import services.{IdentityRequest, IdentityUrlBuilder, IdRequestParser, Authentic
 import play.api.i18n.Messages.Implicits.applicationMessagesApi
 import play.api.Play.current
 
-class ResetPasswordControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar {
+class ResetPasswordControllerTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar {
 
   val api = mock[IdApiClient]
   val requestParser = mock[IdRequestParser]

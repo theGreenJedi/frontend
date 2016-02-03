@@ -9,7 +9,7 @@ import model.Countries
 import org.mockito.Mockito._
 import org.mockito.{ArgumentCaptor, Matchers}
 import org.scalatest._
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import play.api.mvc._
 import play.api.test.Helpers._
 import services._
@@ -20,7 +20,7 @@ import play.api.i18n.Messages.Implicits.applicationMessagesApi
 import play.api.Play.current
 
 //TODO test form validation and population of form fields.
-class EditProfileControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar with OptionValues {
+class EditProfileControllerTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar with OptionValues {
   val idUrlBuilder = mock[IdentityUrlBuilder]
   val api = mock[IdApiClient]
   val idRequestParser = mock[IdRequestParser]

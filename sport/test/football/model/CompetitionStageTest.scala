@@ -1,6 +1,6 @@
 package football.model
 
-import org.scalatest.{DoNotDiscover, OptionValues, FreeSpec, ShouldMatchers}
+import org.scalatest.{DoNotDiscover, OptionValues, FreeSpec, Matchers}
 import pa.{Fixture, Round, Stage}
 import org.scalatest.matchers.{BePropertyMatchResult, BePropertyMatcher}
 import org.joda.time.DateTime
@@ -8,7 +8,7 @@ import org.scalatest.exceptions.TestFailedException
 import implicits.Collections
 import test.ConfiguredTestSuite
 
-@DoNotDiscover class CompetitionStageTest extends FreeSpec with ShouldMatchers with OptionValues with CompetitionTestData with Collections with ConfiguredTestSuite {
+@DoNotDiscover class CompetitionStageTest extends FreeSpec with Matchers with OptionValues with CompetitionTestData with Collections with ConfiguredTestSuite {
   "stagesFromCompetition" - {
     "will generate a League" in {
       val stages = CompetitionStage.stagesFromCompetition(league)

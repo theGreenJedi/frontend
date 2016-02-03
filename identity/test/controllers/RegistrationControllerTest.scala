@@ -1,8 +1,8 @@
 package controllers
 
 import org.scalatest.path
-import org.scalatest.{Matchers => ShouldMatchers}
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.{Matchers => _}
+import org.scalatest.mockito.MockitoSugar
 import test.{TestRequest, Fake}
 import idapiclient.{TrackingData, EmailPassword, IdApiClient}
 import services._
@@ -20,7 +20,7 @@ import conf.IdentityConfiguration
 import play.api.i18n.Messages.Implicits.applicationMessagesApi
 import play.api.Play.current
 
-class RegistrationControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar  {
+class RegistrationControllerTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar  {
 
   val returnUrlVerifier = mock[ReturnUrlVerifier]
   val api = mock[IdApiClient]

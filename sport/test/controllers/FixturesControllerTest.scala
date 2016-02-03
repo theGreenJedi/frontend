@@ -4,7 +4,7 @@ import play.api.test._
 import play.api.test.Helpers._
 import org.scalatest._
 
-@DoNotDiscover class FixturesControllerTest extends FreeSpec with ShouldMatchers with ConfiguredTestSuite {
+@DoNotDiscover class FixturesControllerTest extends FreeSpec with Matchers with ConfiguredTestSuite {
 
   val fixturesUrl = "/football/fixtures"
   val fixtureForUrl = "/football/fixtures/2012/oct/20"

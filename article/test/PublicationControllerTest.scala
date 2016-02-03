@@ -2,14 +2,14 @@ package test
 
 import controllers.PublicationController
 import model.TagDefinition
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import org.mockito.Mockito._
-import org.scalatest.{DoNotDiscover, FlatSpec, Matchers}
+import org.scalatest.{DoNotDiscover, FlatSpec}
 import play.api.test.Helpers._
 import services.{NewspaperBookSectionTagAgent, NewspaperBookTagAgent}
 
 @DoNotDiscover class PublicationControllerTest extends FlatSpec
-                                                with Matchers
+                                                with org.scalatest.Matchers
                                                 with ConfiguredTestSuite
                                                 with MockitoSugar {
 

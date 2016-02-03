@@ -2,8 +2,8 @@ package controllers
 
 import org.mockito.Matchers
 import org.scalatest.path
-import org.scalatest.{Matchers => ShouldMatchers}
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.{Matchers => _}
+import org.scalatest.mockito.MockitoSugar
 import org.mockito.Mockito._
 import org.mockito.Matchers._
 import play.api.Play
@@ -29,7 +29,7 @@ import play.api.i18n.Messages.Implicits.applicationMessagesApi
 import play.api.Play.current
 
 
-class SigninControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar {
+class SigninControllerTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar {
   val returnUrlVerifier = mock[ReturnUrlVerifier]
   val requestParser = mock[IdRequestParser]
   val idUrlBuilder = mock[IdentityUrlBuilder]

@@ -1,8 +1,8 @@
 package idapiclient
 
 import org.scalatest.path
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.{Matchers => ShouldMatchers}
+import org.scalatest.mockito.MockitoSugar
+import org.scalatest.{Matchers => _}
 import org.mockito.Mockito._
 import org.mockito.Matchers.argThat
 import org.mockito.Matchers
@@ -23,7 +23,7 @@ import scala.language.postfixOps
 import net.liftweb.json.JsonAST.JValue
 import net.liftweb.json.Formats
 
-class IdApiTest extends path.FreeSpec with ShouldMatchers with MockitoSugar {
+class IdApiTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar {
   implicit def executionContext: ExecutionContext = ExecutionContexts.currentThreadContext
 
   implicit val formats = LiftJsonConfig.formats + new JodaJsonSerializer

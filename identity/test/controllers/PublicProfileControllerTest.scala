@@ -1,7 +1,7 @@
 package controllers
 
-import org.scalatest._
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.{Matchers => _, _}
+import org.scalatest.mockito.MockitoSugar
 import services.{IdRequestParser, IdentityUrlBuilder}
 import idapiclient._
 import org.mockito.Mockito._
@@ -16,7 +16,7 @@ import scala.concurrent.Future
 import scala.util.Left
 import client.Auth
 
-class PublicProfileControllerTest extends path.FreeSpec with ShouldMatchers with MockitoSugar {
+class PublicProfileControllerTest extends path.FreeSpec with org.scalatest.Matchers with MockitoSugar {
   val idUrlBuilder = mock[IdentityUrlBuilder]
   val api = mock[IdApiClient]
   val idRequestParser = mock[IdRequestParser]

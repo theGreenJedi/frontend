@@ -4,7 +4,7 @@ import org.joda.time.{DateTime, DateTimeZone}
 import org.scalatest._
 import test.ConfiguredTestSuite
 
-@DoNotDiscover class NewspaperQueryTest extends FreeSpec with ShouldMatchers with ConfiguredTestSuite with implicits.Dates{
+@DoNotDiscover class NewspaperQueryTest extends FreeSpec with Matchers with ConfiguredTestSuite with implicits.Dates{
 
   "NewspapeQueryTest" - {
     "lowercase display name except UK news and US news" in {
