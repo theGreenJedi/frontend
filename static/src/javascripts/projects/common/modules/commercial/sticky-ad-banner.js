@@ -31,7 +31,7 @@ define([
     // subscribe to.
 
     var $adBanner = $('.top-banner-ad-container--above-nav');
-    var $adBannerInner = $('.ad-slot--top-above-nav', $adBanner);
+    var $adBannerInner = $('.ad-slot--top-above-nav', $adBanner[0]);
     var $header = $('.js-header');
 
     var topAdRenderedPromise = new Promise(function (resolve) {
@@ -42,7 +42,7 @@ define([
         });
     });
 
-    var getAdIframe = function () { return $('iframe', $adBanner); };
+    var getAdIframe = function () { return $('iframe', $adBanner[0]); };
 
     // Rubicon ads are loaded via DFP like all other ads, but they can
     // render themselves again at any time

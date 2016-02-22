@@ -183,7 +183,7 @@ define([
 
         attachToDOM: function (tmpl, city) {
             $holder = $('#headlines .js-container__header');
-            $('.js-weather', $holder).remove();
+            $('.js-weather', $holder[0]).remove();
             $holder.append(tmpl.replace(new RegExp('<%=city%>', 'g'), city));
         },
 

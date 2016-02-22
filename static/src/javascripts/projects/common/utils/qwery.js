@@ -9,8 +9,8 @@ define([
       var sig = '';
       for (var i = 0; i < arguments.length; i++) {
           sig += Object.prototype.toString.call(arguments[i]);
-          if (i === 1 && !(arguments[i] instanceof Element) && arguments[i] !== undefined) {
-              console.trace();
+          if (i === 1 && arguments[i] !== undefined && !(arguments[i] instanceof Element || arguments[i] === document || arguments[i] === window)) {
+              console.log(Object.prototype.toString.call(arguments[i]));
           }
       }
       signatures[sig] = (signatures[sig] || 0) + 1;

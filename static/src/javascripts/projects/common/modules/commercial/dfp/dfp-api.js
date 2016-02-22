@@ -405,8 +405,8 @@ define([
             creativeIDs.push(event.creativeId);
 
             // remove any placeholder ad content
-            $placeholder = $('.ad-slot__content--placeholder', $slot);
-            $adSlotContent = $('div', $slot);
+            $placeholder = $('.ad-slot__content--placeholder', $slot[0]);
+            $adSlotContent = $('div', $slot[0]);
             idleFastdom.write(function () {
                 $placeholder.remove();
                 $adSlotContent.addClass('ad-slot__content');
@@ -524,7 +524,7 @@ define([
         return new Promise(function (resolve, reject) {
             // DFP sometimes sends back two iframes, one with actual ad and one with 0,0 sizes and __hidden__ 'paramter'
             // The later one will never go to 'complete' state on IE so lets avoid it.
-            var iFrame = find($('iframe', $slot), function (iframe) { return iframe.id.match('__hidden__') === null; });
+            var iFrame = find($('iframe', $slot[0]), function (iframe) { return iframe.id.match('__hidden__') === null; });
 
             // No iFrame, no work to do
             if (typeof iFrame === 'undefined') {

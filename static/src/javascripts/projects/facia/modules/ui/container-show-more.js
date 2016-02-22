@@ -107,7 +107,7 @@ define([
         var seenArticles = itemsByArticleId($container),
             $html = bonzo.create(html);
 
-        $(ITEM_SELECTOR, $html).each(function (article) {
+        $(ITEM_SELECTOR, $html[0]).each(function (article) {
             var $article = bonzo(article);
             if ($article.attr(ARTICLE_ID_ATTRIBUTE) in seenArticles) {
                 $article.remove();
@@ -185,7 +185,7 @@ define([
         var id,
             state,
             button,
-            $el = $('.js-show-more-button', $container);
+            $el = $('.js-show-more-button', $container[0]);
 
         if ($el) {
             id = $container.attr('data-id');
@@ -194,12 +194,12 @@ define([
             button = {
                 $el: $el,
                 $container: $container,
-                $iconEl: $('.i', $el),
-                $placeholder: $('.js-show-more-placeholder', $container),
-                $textEl: $('.' + TEXT_HOOK, $el),
+                $iconEl: $('.i', $el[0]),
+                $placeholder: $('.js-show-more-placeholder', $container[0]),
+                $textEl: $('.' + TEXT_HOOK, $el[0]),
                 id: id,
                 text: {
-                    hidden: $('.js-button-text', $el).text(),
+                    hidden: $('.js-button-text', $el[0]).text(),
                     displayed: 'Less',
                     loading: 'Loading&hellip;'
                 },

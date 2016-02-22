@@ -30,9 +30,9 @@ define([
                 this.bindEvents();
             },
 
-            bindElements: function (container) {
-                $list  = $('.js-search-tool-list', container);
-                $input = $('.js-search-tool-input', container);
+            bindElements: function ($container) {
+                $list  = $('.js-search-tool-list', $container[0]);
+                $input = $('.js-search-tool-input', $container[0]);
             },
 
             bindEvents: function () {
@@ -55,7 +55,7 @@ define([
                     mediator.emit('autocomplete:toggle', true);
                 } else if (isLink) {
                     e.preventDefault();
-                    $('.active', $list).removeClass('active');
+                    $('.active', $list[0]).removeClass('active');
                     $(isLink).addClass('active');
                     this.pushData();
                 } else {
@@ -93,7 +93,7 @@ define([
             },
 
             pushData: function () {
-                var $active = $('.active', $list),
+                var $active = $('.active', $list[0]),
                     data    = {},
                     store   = 'set';
 
@@ -175,7 +175,7 @@ define([
             },
 
             move: function (increment) {
-                var $active = $('.active', $list),
+                var $active = $('.active', $list[0]),
                     id      = parseInt($active.attr('id'), 10);
 
                 if (isNaN(id)) {
@@ -190,13 +190,13 @@ define([
 
                     // When looping inside of the list show list item
                 } else {
-                    $('#' + this.getNewId(id + increment) + 'sti', $list).addClass('active');
+                    $('#' + this.getNewId(id + increment) + 'sti', $list[0]).addClass('active');
                     this.setInputValue();
                 }
             },
 
             getNewId: function (id) {
-                var len   = $('li', $list).length,
+                var len   = $('li', $list[0]).length,
                     newId = id % len;
 
                 // Make sure that we can hit saved input option which has position -1
@@ -210,7 +210,7 @@ define([
             },
 
             setInputValue: function (value) {
-                var inputValue = value || $('.active', $list).attr('data-weather-city');
+                var inputValue = value || $('.active', $list[0]).attr('data-weather-city');
 
                 $input.val(inputValue);
             },
