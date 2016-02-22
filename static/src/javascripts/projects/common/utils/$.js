@@ -16,7 +16,7 @@ define([
     });
 
     function $(selector, context) {
-        return typeof selector === "string" ? bonzo(qwery(selector, context)) : bonzo(selector);
+        return typeof selector === 'string' ? bonzo(qwery(selector, context)) : bonzo(selector);
     }
 
     $.create = function (s) {
