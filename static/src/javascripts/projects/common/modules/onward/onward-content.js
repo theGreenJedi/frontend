@@ -29,7 +29,9 @@ define([
     Component.define(OnwardContent);
 
     OnwardContent.prototype.ready = function (container) {
-        badges.add(container);
+        if (container) {
+            badges.add(container);
+        }
         register.end('series-content');
         mediator.emit('modules:onward:loaded');
         mediator.emit('page:new-content');

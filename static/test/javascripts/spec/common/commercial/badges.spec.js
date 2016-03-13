@@ -20,10 +20,10 @@ define([
                 fixtures: [
                     // jscs:disable disallowMultipleLineStrings
                     '<div class="facia-container">\
-                        <div class="container">\
+                        <div class="fc-container">\
                             <div class="js-container__header"></div>\
                         </div>\
-                        <div class="container">\
+                        <div class="fc-container">\
                             <div class="js-container__header"></div>\
                         </div>\
                     </div>'
@@ -125,7 +125,7 @@ define([
                                 .addClass('js-sponsored-front')
                                 .attr('data-sponsorship', badge.type);
                             badges.init().then(function () {
-                                var $adSlot = $('.container:first-child .ad-slot', $fixtureContainer)
+                                var $adSlot = $('.fc-container:first-child .ad-slot', $fixtureContainer)
                                     .first();
 
                                 expect($adSlot.data('name')).toBe(badge.name);
@@ -145,7 +145,7 @@ define([
                                     'data-sponsorship': badge.type
                                 })[0];
                         badges.init().then(function () {
-                            expect($('.ad-slot', container).html()).toBe(preBadges(badge.type, sponsor));
+                            expect($('.ad-slot', container).html().trim()).toBe(preBadges(badge.type, sponsor));
                             done();
                         });
                     });
@@ -171,11 +171,11 @@ define([
 
             configs.forEach(function (badge) {
                 it('should add "' + badge.name + '" badge to ' + badge.type + ' container', function (done) {
-                    $('.container', $fixtureContainer).first()
+                    $('.fc-container', $fixtureContainer).first()
                         .addClass('js-sponsored-container')
                         .attr('data-sponsorship', badge.type);
                     badges.init().then(function () {
-                        var $adSlot = $('.facia-container .container:first-child .ad-slot', $fixtureContainer).first();
+                        var $adSlot = $('.facia-container .fc-container:first-child .ad-slot', $fixtureContainer).first();
                         expect($adSlot.data('name')).toBe(badge.name);
                         expect($adSlot.hasClass('ad-slot--paid-for-badge--front')).toBeTruthy();
                         done();
@@ -185,7 +185,7 @@ define([
 
             configs.forEach(function (badge) {
                 it('should not add more than one of the same badge', function (done) {
-                    $('.container', $fixtureContainer)
+                    $('.fc-container', $fixtureContainer)
                         .addClass('js-sponsored-container')
                         .attr('data-sponsorship', badge.type);
                     badges.init().then(function () {
@@ -198,21 +198,21 @@ define([
             configs.forEach(function (badge) {
                 it('should add pre-badge if sponsor\'s name available', function (done) {
                     var sponsor = 'Unilever',
-                        container = $('.container', $fixtureContainer).first()
+                        container = $('.fc-container', $fixtureContainer).first()
                             .addClass('js-sponsored-container')
                             .attr({
                                 'data-sponsor': sponsor,
                                 'data-sponsorship': badge.type
                             })[0];
                     badges.init().then(function () {
-                        expect($('.ad-slot', container).html()).toBe(preBadges(badge.type, sponsor));
+                        expect($('.ad-slot', container).html().trim()).toBe(preBadges(badge.type, sponsor));
                         done();
                     });
                 });
             });
 
             it('should not add a badge if one already exists', function (done) {
-                $('.container__header', $fixtureContainer).first()
+                $('.fc-container__header', $fixtureContainer).first()
                     .after('<div class="ad-slot--paid-for-badge"></div>');
                 badges.init();
                 fastdom.defer(function () {
@@ -222,7 +222,7 @@ define([
             });
 
             it('should add container\'s keywords to ad', function (done) {
-                $('.container', $fixtureContainer).first()
+                $('.fc-container', $fixtureContainer).first()
                     .addClass('js-sponsored-container')
                     .attr({
                         'data-keywords': 'russia,ukraine',
@@ -235,7 +235,7 @@ define([
             });
 
             it('should add container\'s keywords to ad', function (done) {
-                $('.facia-container .container', $fixtureContainer)
+                $('.facia-container .fc-container', $fixtureContainer)
                     .first()
                     .addClass('js-sponsored-container')
                     .attr({
@@ -249,7 +249,7 @@ define([
             });
 
             it('should increment badge id if multiple badges added', function (done) {
-                var $containers = $('.container', $fixtureContainer)
+                var $containers = $('.fc-container', $fixtureContainer)
                     .addClass('js-sponsored-container')
                     .attr('data-sponsorship', 'sponsoredfeatures');
                 badges.init().then(function () {
@@ -260,10 +260,10 @@ define([
             });
 
             it('should be able to add badge to a container', function (done) {
-                var $container = $('.container', $fixtureContainer).first()
+                var $container = $('.fc-container', $fixtureContainer).first()
                     .addClass('js-sponsored-container')
                     .attr('data-sponsorship', 'sponsoredfeatures');
-                badges.add($container).then(function () {
+                badges.add($container[0]).then(function () {
                     expect(qwery('#dfp-ad--spbadge1', $container[0]).length).toBe(1);
                     done();
                 });
