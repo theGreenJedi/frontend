@@ -122,7 +122,7 @@ define([
     }
 
     function addBadge(container) {
-        $container = bonzo(container);
+        var $container = bonzo(container);
         if (
             !container.querySelector('.ad-slot--paid-for-badge') &&
             $container.hasClass('js-sponsored-container')
