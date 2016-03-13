@@ -31,21 +31,14 @@ define([
 ) {
     var maxAdsToShow = config.page.showMpuInAllContainers ? Infinity : 3;
 
-    function init(options) {
+    function init() {
         if (!commercialFeatures.sliceAdverts) {
             return false;
         }
 
         var container, containerId, $adSlice, isFrontFirst,
-            opts = defaults(
-                options || {},
-                {
-                    containerSelector: '.fc-container',
-                    sliceSelector: '.js-fc-slice-mpu-candidate'
-                }
-            ),
             // get all the containers
-            containers   = qwery(opts.containerSelector),
+            containers   = qwery('.fc-container'),
             index        = 0,
             adSlices     = [],
             containerGap = 1,
@@ -55,7 +48,7 @@ define([
         while (index < containers.length) {
             container    = containers[index];
             containerId  = bonzo(container).data('id');
-            $adSlice     = $(opts.sliceSelector, container);
+            $adSlice     = $('.js-fc-slice-mpu-candidate', container);
             // don't display ad in the first container on the fronts
             isFrontFirst = contains(['uk', 'us', 'au'], config.page.pageId) && index === 0;
 
