@@ -12,6 +12,7 @@ define([
     'common/modules/experiments/tests/article-video-autoplay',
     'common/modules/experiments/tests/next-in-series',
     'common/modules/experiments/tests/article-related-content-display-as-recommendation',
+    'common/modules/experiments/tests/identity-social-sign-in-permission',
     'common/modules/experiments/tests/email-signup-marketing-checkbox',
     'common/modules/experiments/tests/adblocking-response',
     'lodash/arrays/flatten',
@@ -37,6 +38,7 @@ define([
     ArticleVideoAutoplay,
     NextInSeries,
     RelatedContentDisplayAsRecommendation,
+    IdentitySocialSigninPermission,
     EmailSignupMarketingCheckbox,
     AdblockingResponse,
     flatten,
@@ -58,6 +60,7 @@ define([
         new ArticleVideoAutoplay(),
         new NextInSeries(),
         new RelatedContentDisplayAsRecommendation(),
+        new IdentitySocialSigninPermission(),
         new EmailSignupMarketingCheckbox(),
         new AdblockingResponse()
     ]);
