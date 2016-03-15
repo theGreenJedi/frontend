@@ -41,7 +41,11 @@ object PageSkinSponsorship {
 }
 
 object PageSkin {
-  def isValidForNextGenPageSkin(adUnit: String): Boolean = adUnit.endsWith("/front") || adUnit.endsWith("/front/ng")
+
+  def isValidForNextGenPageSkin(adUnit: String): Boolean = {
+    def adUnitEndsWith(suffix: String): Boolean = adUnit.endsWith(suffix) || adUnit.endsWith(s"$suffix/ng")
+    adUnitEndsWith("/front") || adUnitEndsWith("/subsection")
+  }
 }
 
 
