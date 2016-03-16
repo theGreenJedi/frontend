@@ -76,6 +76,15 @@ trait ABTestSwitches {
     exposeClientSide = true
   )
 
+  val ABIdentitySocialSigninPermissionCopy = Switch(
+    "A/B Tests",
+    "ab-identity-social-sign-in-permission",
+    "New social sign in messaging variant for Identity",
+    safeState = Off,
+    sellByDate = new LocalDate(2016, 4, 5),
+    exposeClientSide = true
+  )
+
   val ABAdblockingResponse = Switch(
     "A/B Tests",
     "ab-adblocking-response",
