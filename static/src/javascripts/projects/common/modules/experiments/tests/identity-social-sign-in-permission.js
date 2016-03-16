@@ -10,7 +10,7 @@ define([], function () {
 
     return function () {
 
-        this.id = 'IdentitySocialSigninPermission';
+        this.id = 'IdentitySocialSigninPermissionCopy';
         this.start = '2015-03-15';
         this.expiry = '2016-04-05';
         this.author = 'Mark Butler';

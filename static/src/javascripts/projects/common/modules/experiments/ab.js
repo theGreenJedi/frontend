@@ -38,7 +38,7 @@ define([
     ArticleVideoAutoplay,
     NextInSeries,
     RelatedContentDisplayAsRecommendation,
-    IdentitySocialSigninPermission,
+    IdentitySocialSigninPermissionCopy,
     EmailSignupMarketingCheckbox,
     AdblockingResponse,
     flatten,
@@ -60,7 +60,7 @@ define([
         new ArticleVideoAutoplay(),
         new NextInSeries(),
         new RelatedContentDisplayAsRecommendation(),
-        new IdentitySocialSigninPermission(),
+        new IdentitySocialSigninPermissionCopy(),
         new EmailSignupMarketingCheckbox(),
         new AdblockingResponse()
     ]);
