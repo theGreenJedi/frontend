@@ -81,7 +81,7 @@ trait ABTestSwitches {
     "ab-identity-social-sign-in-permission",
     "New social sign in messaging variant for Identity",
     safeState = Off,
-    sellByDate = new LocalDate(2016, 4, 5),
+    sellByDate = new LocalDate(2016, 4, 11),
     exposeClientSide = true
   )
 

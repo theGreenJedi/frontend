@@ -11,8 +11,8 @@ define([], function () {
     return function () {
 
         this.id = 'IdentitySocialSigninPermissionCopy';
-        this.start = '2015-03-15';
-        this.expiry = '2016-04-05';
+        this.start = '2015-03-16';
+        this.expiry = '2016-04-11';
         this.author = 'Mark Butler';
         this.description = 'New social sign in messaging variant for Identity';
         this.audience = 0.5;
