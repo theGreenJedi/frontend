@@ -4,6 +4,7 @@ import model.facia.PressedCollection
 import org.joda.time.DateTime
 
 case class ContainerModel(content: ContainerContent, metaData: ContainerMetaData)
+
 case class ContainerContent(
                              id: String,
                              title: String,
@@ -11,6 +12,7 @@ case class ContainerContent(
                              targetUrl: String,
                              cardContents: Seq[CardContent]
                            )
+
 case class ContainerMetaData(
                               uneditable: Boolean,
                               showTags: Boolean,
@@ -27,6 +29,7 @@ case class ContainerMetaData(
                               layoutName: String,
                               groups: Option[Seq[String]]
                             )
+
 case class CardContent(
   headline: String,
   description: Option[String],
@@ -36,5 +39,31 @@ case class CardContent(
 
 object ContainerModel {
 
-  def fromPressedCollection(collection: PressedCollection): ContainerModel = ???
+  def fromPressedCollection(collection: PressedCollection): ContainerModel = {
+    val containerCards = Nil
+    val content = ContainerContent(
+      id = collection.id,
+      title = collection.displayName,
+      description = "",
+      targetUrl = "",
+      containerCards
+    )
+    val metaData = ContainerMetaData(
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      None,
+      None,
+      None,
+      "",
+      None
+    )
+    ContainerModel(content, metaData)
+  }
 }
