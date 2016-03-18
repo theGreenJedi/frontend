@@ -1,4 +1,4 @@
-@import common.commercial.ContainerContent
+@import common.commercial.ContainerModel
 @(faciaPage: model.PressedPage)(implicit request: RequestHeader)
 @import common.Edition
 @import views.support.RenderClasses
@@ -37,7 +37,7 @@
                             faciaPage.isAdvertisementFeature,
                             faciaPage.collections
                                 .find(_.id == containerDefinition.dataId)
-                                .map(ContainerContent.fromPressedCollection)
+                                .map(ContainerModel.fromPressedCollection)
                         )
                     }
 

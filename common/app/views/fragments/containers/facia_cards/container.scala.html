@@ -1,4 +1,4 @@
-@import common.commercial.ContainerContent
+@import common.commercial.ContainerModel
 @import common.dfp.{Keyword, Series}
 @import conf.switches.Switches
 @import layout.MetaDataHeader
@@ -9,13 +9,13 @@
 @(containerDefinition: layout.FaciaContainer,
   frontProperties: model.FrontProperties = model.FrontProperties.empty,
   isPaidFront: Boolean = false,
-  maybeContainerContent: Option[ContainerContent] = None)(implicit request: RequestHeader)
+  maybeContainerModel: Option[ContainerModel] = None)(implicit request: RequestHeader)
 
 @renderCommercialContainer(containerType: CommercialContainerType) = {
-    @(Switches.v2FixedTemplate.isSwitchedOn, maybeContainerContent) match {
-        case (true, Some(containerContent)) => {
+    @(Switches.v2FixedTemplate.isSwitchedOn, maybeContainerModel) match {
+        case (true, Some(containerModel)) => {
             <div class="fc-container__inner">
-            @commercialContainerV2("typeName", containerContent)
+            @commercialContainerV2(containerModel)
             </div>
         }
         case _ => {
