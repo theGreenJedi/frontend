@@ -3,8 +3,7 @@ package common.commercial
 import model.facia.PressedCollection
 import model.pressed.PressedContent
 import model.{ImageOverride, VideoElement}
-import views.support.ImgSrc
-import views.support.{CardWithSponsorDataAttributes, SponsorDataAttributes}
+import views.support.{ImgSrc, CardWithSponsorDataAttributes, SponsorDataAttributes}
 
 case class ContainerModel(
                            id: String,
@@ -21,14 +20,8 @@ case class ContainerContent(
 
 case class ContainerMetaData(
                               sponsorData: Option[SponsorDataAttributes],
-                              showTags: Boolean,
-                              showSections: Boolean,
-                              hideKickers: Boolean,
-                              showDateHeader: Boolean,
-                              showLatestUpdate: Boolean,
-                              showTimestamps: Boolean,
-                              hideShowMore: Boolean,
-                              layoutName: String
+                              layoutName: String,
+                              hideShowMore: Boolean
                             )
 
 case class CardContent(
@@ -45,6 +38,7 @@ object CardContent {
 
     val header = content.header
 
+    // todo: interactive card image: eg. 'The fight against child poverty – infographic'
     val imageUrl = {
       val properties = content.properties
       val maybeContent = properties.maybeContent
@@ -90,12 +84,6 @@ object ContainerModel {
 
     val metaData = ContainerMetaData(
       sponsorData = maybeSponsorDataAttributes,
-      showTags = collection.showTags,
-      showSections = collection.showSections,
-      hideKickers = collection.hideKickers,
-      showDateHeader = collection.showDateHeader,
-      showLatestUpdate = collection.showLatestUpdate,
-      showTimestamps = collection.config.showTimestamps,
       hideShowMore = collection.config.hideShowMore,
       layoutName = collection.collectionType)
 
