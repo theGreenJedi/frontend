@@ -19,14 +19,8 @@ case class ContainerContent(
                            )
 
 case class ContainerMetaData(
-                              showTags: Boolean,
-                              showSections: Boolean,
-                              hideKickers: Boolean,
-                              showDateHeader: Boolean,
-                              showLatestUpdate: Boolean,
-                              showTimestamps: Boolean,
-                              hideShowMore: Boolean,
-                              layoutName: String
+                              layoutName: String,
+                              hideShowMore: Boolean
                             )
 
 case class CardContent(
@@ -34,7 +28,7 @@ case class CardContent(
                         description: Option[String],
                         imageUrl: Option[String],
                         targetUrl: String
-)
+                      )
 
 object CardContent {
 
@@ -42,6 +36,7 @@ object CardContent {
 
     val header = content.header
 
+    // todo: interactive card image: eg. 'The fight against child poverty – infographic'
     val imageUrl = {
       val properties = content.properties
       val maybeContent = properties.maybeContent
@@ -82,14 +77,8 @@ object ContainerModel {
     )
 
     val metaData = ContainerMetaData(
-      showTags = collection.showTags,
-      showSections = collection.showSections,
-      hideKickers = collection.hideKickers,
-      showDateHeader = collection.showDateHeader,
-      showLatestUpdate = collection.showLatestUpdate,
-      showTimestamps = collection.config.showTimestamps,
-      hideShowMore = collection.config.hideShowMore,
-      layoutName = collection.collectionType)
+      layoutName = collection.collectionType,
+      hideShowMore = collection.config.hideShowMore)
 
     ContainerModel(id = collection.id, content, metaData)
   }
