@@ -2,6 +2,7 @@ package common.commercial
 
 import model.facia.PressedCollection
 import model.pressed.PressedContent
+import views.support.{CardWithSponsorDataAttributes, SponsorDataAttributes}
 
 case class ContainerModel(
                            id: String,
@@ -17,6 +18,7 @@ case class ContainerContent(
                            )
 
 case class ContainerMetaData(
+                              sponsorData: Option[SponsorDataAttributes],
                               showTags: Boolean,
                               showSections: Boolean,
                               hideKickers: Boolean,
@@ -31,20 +33,26 @@ case class CardContent(
                         headline: String,
                         description: Option[String],
                         imageUrl: Option[String],
-                        targetUrl: Option[String]
+                        targetUrl: Option[String],
+                        sponsorData: Option[SponsorDataAttributes]
 )
 
 object CardContent {
 
   def fromPressedContent(content: PressedContent): CardContent = {
+
+    val metaDataCommercial: Option[SponsorDataAttributes] =
+      CardWithSponsorDataAttributes.sponsorDataAttributes(content)
+
     CardContent(
       headline = content.properties.webTitle,
-      description = None,
+      description = content.card.trailText,
       // todo: this is probably wrong size and not suitable for video etc
       // todo: see facia_cards.image.scala.html for props need to pass through
       imageUrl = content.properties.maybeContent.flatMap(_.elements.mainPicture.flatMap(_.images.largestImageUrl)),
       // todo: is weburl just prod?
-      targetUrl = content.properties.webUrl
+      targetUrl = content.properties.webUrl,
+      sponsorData = metaDataCommercial
     )
   }
 }
@@ -55,6 +63,9 @@ object ContainerModel {
 
     val cardContents = collection.curatedPlusBackfillDeduplicated map CardContent.fromPressedContent
 
+    val singleSponsorContainer = cardContents.forall(card => card.sponsorData == cardContents.head.sponsorData)
+    val maybeSponsorDataAttributes = if (singleSponsorContainer) cardContents.head.sponsorData else None
+
     val content = ContainerContent(
       title = collection.displayName,
       description = collection.description,
@@ -63,6 +74,7 @@ object ContainerModel {
     )
 
     val metaData = ContainerMetaData(
+      sponsorData = maybeSponsorDataAttributes,
       showTags = collection.showTags,
       showSections = collection.showSections,
       hideKickers = collection.hideKickers,
