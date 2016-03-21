@@ -1,17 +1,17 @@
 @(containerModel: common.commercial.ContainerModel)
 
 <div data-id="@containerModel.id">
-    <h1>@containerModel.content.title</h1>
-    <a href="@containerModel.content.targetUrl">@containerModel.content.title</a>
+    <h1><a href="@containerModel.content.targetUrl">@containerModel.content.title</a></h1>
     @for(description <- containerModel.content.description) {
         <p>@description</p>
     }
 
     @for(card <- containerModel.content.cardContents) {
         <div>
-            <p>@card.headline</p>
-            <p><a href="@card.targetUrl">@card.headline</a></p>
-            <p>@card.description</p>
+            <p><a href="@card.targetUrl">@Html(card.headline)</a></p>
+            @for(description <- card.description) {
+                <p>@Html(description)</p>
+            }
             <img src="@card.imageUrl" />
         </div>
     }
