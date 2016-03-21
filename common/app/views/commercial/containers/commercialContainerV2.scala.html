@@ -1,3 +1,9 @@
 @(containerModel: common.commercial.ContainerModel)
-
-<p>container will go here</p>
+<a href="@containerModel.content.targetUrl.getOrElse("")">
+    <div data-id="@containerModel.id">
+        <h1>@containerModel.content.title</h1>
+        @if(containerModel.content.description.isDefined){
+            <p>@containerModel.content.description</p>
+        }
+    </div>
+</a>

@@ -1,7 +1,7 @@
 package common.commercial
 
 import model.facia.PressedCollection
-import model.pressed.{CuratedContent, PressedContent, CollectionConfig}
+import model.pressed.{CollectionConfig, CuratedContent, PressedContent}
 import org.scalatest.{FlatSpec, Matchers}
 
 class PressedCollectionContainerTest extends FlatSpec with Matchers {
@@ -72,7 +72,7 @@ class PressedCollectionContainerTest extends FlatSpec with Matchers {
     "The PressedCollection basic attributes" should "match those of the ContainerContent" in {
       (container.content, pressedCollection) match {
         case (cont, collection) =>
-          cont.id should be(collection.id)
+          container.id should be(collection.id)
           cont.title should be(collection.displayName)
           cont.description should be(collection.description)
           cont.targetUrl should be(collection.href)
@@ -82,17 +82,14 @@ class PressedCollectionContainerTest extends FlatSpec with Matchers {
     "The PressedCollection MetaData attributes" should "match those of the ContainerContent.MetaData" in {
       (container.metaData, pressedCollection, pressedCollection.config) match {
         case (metaData, collection, config) =>
-          metaData.uneditable       should be (collection.uneditable)
           metaData.showTags         should be (collection.showTags)
           metaData.showSections     should be (collection.showSections)
           metaData.hideKickers      should be (collection.hideKickers)
           metaData.showDateHeader   should be (collection.showDateHeader)
           metaData.showLatestUpdate should be (collection.showLatestUpdate)
-          metaData.excludefromRss   should be (config.excludeFromRss)
           metaData.showTimestamps   should be (config.showTimestamps)
           metaData.hideShowMore     should be (config.hideShowMore)
           metaData.layoutName       should be (collection.collectionType)
-          metaData.groups           should be (collection.groups)
       }
     }
 

@@ -11,8 +11,8 @@ case class ContainerModel(
 
 case class ContainerContent(
                              title: String,
-                             description: String,
-                             targetUrl: String,
+                             description: Option[String],
+                             targetUrl: Option[String],
                              cardContents: Seq[CardContent]
                            )
 
@@ -53,26 +53,24 @@ object ContainerModel {
 
   def fromPressedCollection(collection: PressedCollection): ContainerModel = {
 
-    // todo: dedup curated and backfill
-    val cardContents = collection.curated map CardContent.fromPressedContent
+    val cardContents = collection.curatedPlusBackfillDeduplicated map CardContent.fromPressedContent
 
     val content = ContainerContent(
       title = collection.displayName,
-      description = "",
-      targetUrl = "",
+      description = collection.description,
+      targetUrl = collection.href,
       cardContents
     )
 
     val metaData = ContainerMetaData(
-      showTags = false,
-      showSections = false,
-      hideKickers = false,
-      showDateHeader = false,
-      showLatestUpdate = false,
-      showTimestamps = false,
-      hideShowMore = false,
-      layoutName = ""
-    )
+      showTags = collection.showTags,
+      showSections = collection.showSections,
+      hideKickers = collection.hideKickers,
+      showDateHeader = collection.showDateHeader,
+      showLatestUpdate = collection.showLatestUpdate,
+      showTimestamps = collection.config.showTimestamps,
+      hideShowMore = collection.config.hideShowMore,
+      layoutName = collection.collectionType)
 
     ContainerModel(id = collection.id, content, metaData)
   }
