@@ -2,6 +2,8 @@ package common.commercial
 
 import model.facia.PressedCollection
 import model.pressed.PressedContent
+import model.{ImageOverride, VideoElement}
+import views.support.ImgSrc
 import views.support.{CardWithSponsorDataAttributes, SponsorDataAttributes}
 
 case class ContainerModel(
@@ -33,7 +35,7 @@ case class CardContent(
                         headline: String,
                         description: Option[String],
                         imageUrl: Option[String],
-                        targetUrl: Option[String],
+                        targetUrl: String,
                         sponsorData: Option[SponsorDataAttributes]
 )
 
@@ -41,18 +43,31 @@ object CardContent {
 
   def fromPressedContent(content: PressedContent): CardContent = {
 
-    val metaDataCommercial: Option[SponsorDataAttributes] =
-      CardWithSponsorDataAttributes.sponsorDataAttributes(content)
+    val header = content.header
+
+    val imageUrl = {
+      val properties = content.properties
+      val maybeContent = properties.maybeContent
+      lazy val videoImageMedia = {
+        maybeContent.map(_.elements.elements).getOrElse(Nil) find {
+          case VideoElement(videoProperties, _, _) => videoProperties.isMain
+          case _ => false
+        } flatMap {
+          case VideoElement(_, imageMedia, _) => Some(imageMedia)
+          case _ => None
+        }
+      }
+      lazy val imageOverride = properties.image.flatMap(ImageOverride.createImageMedia)
+      lazy val defaultTrailPicture = maybeContent.flatMap(_.trail.trailPicture)
+      videoImageMedia.orElse(imageOverride).orElse(defaultTrailPicture) flatMap ImgSrc.getFallbackUrl
+    }
 
     CardContent(
-      headline = content.properties.webTitle,
+      headline = header.headline,
       description = content.card.trailText,
-      // todo: this is probably wrong size and not suitable for video etc
-      // todo: see facia_cards.image.scala.html for props need to pass through
-      imageUrl = content.properties.maybeContent.flatMap(_.elements.mainPicture.flatMap(_.images.largestImageUrl)),
-      // todo: is weburl just prod?
-      targetUrl = content.properties.webUrl,
-      sponsorData = metaDataCommercial
+      imageUrl,
+      targetUrl = header.url,
+      sponsorData = CardWithSponsorDataAttributes.sponsorDataAttributes(content)
     )
   }
 }
