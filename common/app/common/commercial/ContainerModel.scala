@@ -1,12 +1,15 @@
 package common.commercial
 
 import model.facia.PressedCollection
-import org.joda.time.DateTime
+import model.pressed.PressedContent
 
-case class ContainerModel(content: ContainerContent, metaData: ContainerMetaData)
+case class ContainerModel(
+                           id: String,
+                           content: ContainerContent,
+                           metaData: ContainerMetaData
+                         )
 
 case class ContainerContent(
-                             id: String,
                              title: String,
                              description: String,
                              targetUrl: String,
@@ -14,56 +17,63 @@ case class ContainerContent(
                            )
 
 case class ContainerMetaData(
-                              uneditable: Boolean,
                               showTags: Boolean,
                               showSections: Boolean,
                               hideKickers: Boolean,
                               showDateHeader: Boolean,
                               showLatestUpdate: Boolean,
-                              excludefromRss: Boolean,
                               showTimestamps: Boolean,
                               hideShowMore: Boolean,
-                              lastUpdated: Option[DateTime],
-                              updatedBy: Option[String],
-                              updatedEmail: Option[String],
-                              layoutName: String,
-                              groups: Option[Seq[String]]
+                              layoutName: String
                             )
 
 case class CardContent(
-  headline: String,
-  description: Option[String],
-  imageUrl: Option[String],
-  targetUrl: String
+                        headline: String,
+                        description: Option[String],
+                        imageUrl: Option[String],
+                        targetUrl: Option[String]
 )
+
+object CardContent {
+
+  def fromPressedContent(content: PressedContent): CardContent = {
+    CardContent(
+      headline = content.properties.webTitle,
+      description = None,
+      // todo: this is probably wrong size and not suitable for video etc
+      // todo: see facia_cards.image.scala.html for props need to pass through
+      imageUrl = content.properties.maybeContent.flatMap(_.elements.mainPicture.flatMap(_.images.largestImageUrl)),
+      // todo: is weburl just prod?
+      targetUrl = content.properties.webUrl
+    )
+  }
+}
 
 object ContainerModel {
 
   def fromPressedCollection(collection: PressedCollection): ContainerModel = {
-    val containerCards = Nil
+
+    // todo: dedup curated and backfill
+    val cardContents = collection.curated map CardContent.fromPressedContent
+
     val content = ContainerContent(
-      id = collection.id,
       title = collection.displayName,
       description = "",
       targetUrl = "",
-      containerCards
+      cardContents
     )
+
     val metaData = ContainerMetaData(
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      None,
-      None,
-      None,
-      "",
-      None
+      showTags = false,
+      showSections = false,
+      hideKickers = false,
+      showDateHeader = false,
+      showLatestUpdate = false,
+      showTimestamps = false,
+      hideShowMore = false,
+      layoutName = ""
     )
-    ContainerModel(content, metaData)
+
+    ContainerModel(id = collection.id, content, metaData)
   }
 }
