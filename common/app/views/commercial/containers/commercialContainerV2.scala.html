@@ -1,6 +1,7 @@
 @(containerModel: common.commercial.ContainerModel)
 
 <div data-id="@containerModel.id">
+    <p>A <em>@containerModel.metaData.layoutName</em> container</p>
     <h1><a href="@containerModel.content.targetUrl">@containerModel.content.title</a></h1>
     @for(description <- containerModel.content.description) {
         <p>@description</p>
