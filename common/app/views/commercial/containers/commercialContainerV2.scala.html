@@ -1,9 +1,19 @@
 @(containerModel: common.commercial.ContainerModel)
-<a href="@containerModel.content.targetUrl.getOrElse("")">
-    <div data-id="@containerModel.id">
-        <h1>@containerModel.content.title</h1>
-        @if(containerModel.content.description.isDefined){
-            <p>@containerModel.content.description</p>
-        }
-    </div>
-</a>
+
+<div data-id="@containerModel.id">
+    <h1>@containerModel.content.title</h1>
+    <a href="@containerModel.content.targetUrl">@containerModel.content.title</a>
+    @for(description <- containerModel.content.description) {
+        <p>@description</p>
+    }
+
+    @for(card <- containerModel.content.cardContents) {
+        <div>
+            <p>@card.headline</p>
+            <p><a href="@card.targetUrl">@card.headline</a></p>
+            <p>@card.description</p>
+            <img src="@card.imageUrl" />
+        </div>
+    }
+
+</div>
