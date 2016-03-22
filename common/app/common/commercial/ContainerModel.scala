@@ -1,8 +1,8 @@
 package common.commercial
 
+import model.ImageOverride
 import model.facia.PressedCollection
 import model.pressed.PressedContent
-import model.{ImageOverride, VideoElement}
 import views.support.ImgSrc
 
 case class ContainerModel(
@@ -36,22 +36,15 @@ object CardContent {
 
     val header = content.header
 
-    // todo: interactive card image: eg. 'The fight against child poverty – infographic'
     val imageUrl = {
       val properties = content.properties
       val maybeContent = properties.maybeContent
-      lazy val videoImageMedia = {
-        maybeContent.map(_.elements.elements).getOrElse(Nil) find {
-          case VideoElement(videoProperties, _, _) => videoProperties.isMain
-          case _ => false
-        } flatMap {
-          case VideoElement(_, imageMedia, _) => Some(imageMedia)
-          case _ => None
-        }
+      lazy val videoImageMedia = maybeContent flatMap (_.elements.mainVideo.map(_.images))
+      lazy val imageOverride = properties.image flatMap ImageOverride.createImageMedia
+      lazy val defaultTrailPicture = maybeContent flatMap (_.trail.trailPicture)
+      videoImageMedia.orElse(imageOverride).orElse(defaultTrailPicture) flatMap {
+        ImgSrc.getFallbackUrl
       }
-      lazy val imageOverride = properties.image.flatMap(ImageOverride.createImageMedia)
-      lazy val defaultTrailPicture = maybeContent.flatMap(_.trail.trailPicture)
-      videoImageMedia.orElse(imageOverride).orElse(defaultTrailPicture) flatMap ImgSrc.getFallbackUrl
     }
 
     CardContent(
