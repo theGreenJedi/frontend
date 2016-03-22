@@ -3,7 +3,7 @@ package common.commercial
 import model.ImageOverride
 import model.facia.PressedCollection
 import model.pressed.PressedContent
-import views.support.ImgSrc
+import views.support.{CardWithSponsorDataAttributes, ImgSrc, SponsorDataAttributes}
 
 case class ContainerModel(
                            id: String,
@@ -19,6 +19,7 @@ case class ContainerContent(
                            )
 
 case class ContainerMetaData(
+                              sponsorData: Option[SponsorDataAttributes],
                               layoutName: String,
                               hideShowMore: Boolean
                             )
@@ -27,8 +28,9 @@ case class CardContent(
                         headline: String,
                         description: Option[String],
                         imageUrl: Option[String],
-                        targetUrl: String
-                      )
+                        targetUrl: String,
+                        sponsorData: Option[SponsorDataAttributes]
+)
 
 object CardContent {
 
@@ -51,7 +53,8 @@ object CardContent {
       headline = header.headline,
       description = content.card.trailText,
       imageUrl,
-      targetUrl = header.url
+      targetUrl = header.url,
+      sponsorData = CardWithSponsorDataAttributes.sponsorDataAttributes(content)
     )
   }
 }
@@ -62,6 +65,9 @@ object ContainerModel {
 
     val cardContents = collection.curatedPlusBackfillDeduplicated map CardContent.fromPressedContent
 
+    val singleSponsorContainer = cardContents.forall(card => card.sponsorData == cardContents.head.sponsorData)
+    val maybeSponsorDataAttributes = if (singleSponsorContainer) cardContents.head.sponsorData else None
+
     val content = ContainerContent(
       title = collection.displayName,
       description = collection.description,
@@ -70,8 +76,9 @@ object ContainerModel {
     )
 
     val metaData = ContainerMetaData(
-      layoutName = collection.collectionType,
-      hideShowMore = collection.config.hideShowMore)
+      sponsorData = maybeSponsorDataAttributes,
+      hideShowMore = collection.config.hideShowMore,
+      layoutName = collection.collectionType)
 
     ContainerModel(id = collection.id, content, metaData)
   }

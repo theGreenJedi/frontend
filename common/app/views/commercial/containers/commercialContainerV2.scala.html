@@ -8,7 +8,18 @@
     }
 
     @for(card <- containerModel.content.cardContents) {
-        <div>
+        <div
+            @if(containerModel.metaData.sponsorData == None) {
+                @for(sponsorData <- card.sponsorData) {
+                    @for(sponsor <- sponsorData.sponsor) {
+                        data-sponsor="@sponsor"
+                    }
+                    data-sponsorship="@sponsorData.sponsorshipType"
+                    @for(keywords <- sponsorData.keywordId) {
+                        data-keywords="@keywords" }
+                }
+            }
+        >
             <p><a href="@card.targetUrl">@Html(card.headline)</a></p>
             @for(description <- card.description) {
                 <p>@Html(description)</p>
