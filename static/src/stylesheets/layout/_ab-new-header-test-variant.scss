@@ -101,10 +101,12 @@
     // Unset button from user agent stylesheet
     border: 0;
     // Override button from user agent stylesheet
-    // Must be square
-    padding: $gs-gutter * .6;
+    box-sizing: border-box;
     border-radius: 100%;
     z-index: $zindex-modal;
+    // Do not allow Flexbox to shrink below the specified width
+    // We want this to appear square for all screen sizes
+    flex-shrink: 0;
 
     @include mq($until: phablet) {
         margin-left: 6px;
@@ -113,8 +115,22 @@
         margin-bottom: -5px;
     }
 
+    @include mq($until: tablet) {
+        padding: $gs-gutter * .6;
+        width: 42px;
+        height: 42px;
+    }
+
+    @include mq(phablet) {
+        padding: $gs-gutter * .9;
+        width: 60px;
+        height: 60px;
+    }
+
     svg {
-        height: 18px;
+        width: 100%;
+        // TODO: Fix Safari
+        height: auto;
         // Removes extra spacing
         display: block;
         fill: #ffffff;
