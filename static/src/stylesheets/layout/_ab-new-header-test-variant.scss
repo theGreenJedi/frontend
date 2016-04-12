@@ -107,12 +107,12 @@
     // Do not allow Flexbox to shrink below the specified width
     // We want this to appear square for all screen sizes
     flex-shrink: 0;
+    // Overlap
+    margin-top: -5px;
+    margin-bottom: -5px;
 
     @include mq($until: phablet) {
         margin-left: 6px;
-        // Overlap
-        margin-top: -5px;
-        margin-bottom: -5px;
     }
 
     @include mq($until: tablet) {
