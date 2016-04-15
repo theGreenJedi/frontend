@@ -49,11 +49,12 @@
 }
 
 .new-header__edition-button {
-    @include fs-textSans(2);
+    font-family: $f-sans-serif-text;
+    font-size: 12px;
+    // Override inherited from body
+    line-height: 1.2;
     order: -1;
     color: $news-support-1;
-    // Override from fs-textSans mixin
-    line-height: 1;
     // TODO: Use reset util?
     // Unset button from user agent stylesheet
     background: none;
@@ -103,13 +104,14 @@
     // Override button from user agent stylesheet
     box-sizing: border-box;
     border-radius: 100%;
-    z-index: $zindex-modal;
+    z-index: 1;
     // Do not allow Flexbox to shrink below the specified width
     // We want this to appear square for all screen sizes
     flex-shrink: 0;
     // Overlap
     margin-top: -5px;
     margin-bottom: -5px;
+    display: flex;
 
     @include mq($until: phablet) {
         margin-left: 6px;
@@ -127,12 +129,17 @@
         height: 60px;
     }
 
+    &:focus {
+        background-color: darken($news-main-2, 10%);
+        // box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.2);
+        // Unset a:focus from user agent stylesheet
+        outline: 0;
+    }
+
     svg {
         width: 100%;
         // TODO: Fix Safari
         height: auto;
-        // Removes extra spacing
-        display: block;
         fill: #ffffff;
     }
 }
@@ -173,4 +180,165 @@
     // Override a from _lists.scss
     color: #ffffff;
     padding: 2px;
+}
+
+
+
+.main-menu-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    // TODO: Why 3?
+    z-index: 3;
+
+    .js-on & {
+        &:not(.shown) {
+            display: none;
+        }
+    }
+
+    .js-off & {
+        &:not(:target) {
+            display: none;
+        }
+    }
+}
+
+.main-menu-container__overlay {
+    background-color: hsla(0, 0%, 0%, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: opacity 0.2s;
+
+    .main-menu-container.off-screen & {
+        opacity: 0;
+    }
+}
+
+.main-menu-container__menu {
+    height: 100%;
+    width: 80%;
+    max-width: 260px;
+    background-color: $guardian-brand;
+    color: #ffffff;
+    box-shadow: 3px 0 16px rgba(0,0,0,0.4);
+    will-change: transform;
+    transition: transform 0.2s ease-out;
+    font-family: $f-sans-serif-text;
+    font-size: 20px;
+    color: white;
+    text-transform: lowercase;
+    // TODO: Remove
+    padding-top: 10px;
+    overflow: auto;
+
+    .main-menu-container.off-screen & {
+        transform: translateX(-110%);
+    }
+}
+
+.main-navigation {
+    // Unset ul from _lists.scss
+    margin-left: 0;
+    // Unset ul from user agent stylesheet
+    margin-top: 0;
+    // Unset ul from user agent stylesheet
+    margin-bottom: 0;
+    padding-bottom: 16px;
+}
+
+.main-navigation__item {
+    // Override inherited ul from user agent stylesheet
+    list-style: none;
+}
+
+$navigation-horizontal-padding: 38px;
+
+.main-navigation__item__button {
+    // padding-left: $navigation-horizontal-padding;
+    padding-right: $navigation-horizontal-padding;
+    padding-bottom: 6px;
+    font-size: 26px;
+
+    &:focus {
+        // Unset a:focus from user agent stylesheet
+        outline: 0;
+        background-color: darken($guardian-brand, 5%);
+    }
+
+    &::-webkit-details-marker {
+        display: none;
+    }
+
+    // TODO: Why both?
+    .inline-icon, svg {
+        vertical-align: middle;
+    }
+
+    svg {
+        fill: hsla(0, 0%, 100%, 0.3);
+        margin-left: ($navigation-horizontal-padding - 15px) / 2;
+        margin-right: ($navigation-horizontal-padding - 15px) / 2 - 6px;
+        width: 15px;
+        height: auto;
+
+        details[open] & {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.main-navigation__secondary {
+    background-color: darken($guardian-brand, 3%);
+    color: $news-support-1;
+}
+
+.navigation-border {
+    &:before {
+        content: '';
+        display: block;
+        height: 1px;
+        background: $guardian-brand-dark;
+        margin-left: $navigation-horizontal-padding;
+    }
+}
+
+.navigation-group {
+    // Unset ul from _lists.scss
+    margin-left: 0;
+    // Unset ul from user agent stylesheet
+    margin-top: 0;
+    // Unset ul from user agent stylesheet
+    margin-bottom: 0;
+    padding-bottom: 10px;
+}
+
+.navigation-group__item {
+    // Override inherited ul from user agent stylesheet
+    list-style: none;
+
+    a {
+        display: block;
+        padding-left: $navigation-horizontal-padding;
+        padding-right: $navigation-horizontal-padding;
+        padding-bottom: 6px;
+       // Override a from user agent stylesheet
+        color: inherit;
+
+        // TODO: Share with large nav?
+        &:focus {
+            // Unset a:focus from user agent stylesheet
+            outline: 0;
+            background-color: darken($guardian-brand, 5%);
+        }
+    }
+}
+
+.no-text-transform {
+    text-transform: none;
 }

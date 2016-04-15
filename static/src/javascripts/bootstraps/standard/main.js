@@ -245,5 +245,89 @@ define([
         } catch (e) {
             // do nothing
         }
+
+
+
+        const mainMenuId = 'main-menu';
+        const mainMenuEl = document.querySelector('#' + mainMenuId);
+        const htmlEl = document.querySelector('html');
+
+        const handleHashChange = oldURL => {
+            const hash = window.location.hash;
+            const shouldShowMenu = window.location.hash === '#' + mainMenuId;
+            const shouldHideMenu = oldURL && oldURL.hash === '#' + mainMenuId && window.location.hash === '';
+
+            if (shouldShowMenu) {
+                const updateFocus = () => {
+                    const firstButton = document.querySelectorAll('.main-navigation__item__button')[0];
+                    if (firstButton) {
+                        firstButton.focus();
+                    }
+                };
+                const animate = () => new Promise(resolve => {
+                    requestAnimationFrame(() => {
+                        // TODO: Use pointer events if supported
+                        // window.CSS.supports('pointer-events', 'none')
+                        mainMenuEl.classList.add('shown');
+                        mainMenuEl.classList.add('off-screen');
+
+                        requestAnimationFrame(() => {
+                            mainMenuEl.classList.remove('off-screen');
+                            resolve();
+                        });
+                    });
+                });
+                const preventScroll = () => {
+                    document.querySelector('html').style.overflow = 'hidden';
+                    // Necessary for mobile browsers
+                    // TODO: Perf? Big layout cost
+                    htmlEl.style.height = '100%';
+                    document.body.style.height = '100%';
+                };
+
+                animate().then(() => {
+                    updateFocus();
+                    preventScroll();
+                });
+            } else if (shouldHideMenu) {
+                const updateFocus = () => {
+                    document.querySelector('.new-header__nav__menu-button').focus();
+                };
+                const animate = () => new Promise(resolve => {
+                    requestAnimationFrame(() => {
+                        mainMenuEl.classList.add('off-screen');
+
+                        // TODO: Support browsers that don't have transitions
+                        // We still want to hide this
+                        mainMenuEl.addEventListener('transitionend', function handler() {
+                            requestAnimationFrame(() => {
+                                mainMenuEl.classList.remove('off-screen');
+                                mainMenuEl.classList.remove('shown');
+                                mainMenuEl.removeEventListener('transitionend', handler);
+
+                                resolve();
+                            });
+                        });
+                    });
+                });
+                const allowScroll = () => {
+                    htmlEl.style.overflow = '';
+                    htmlEl.style.height = '';
+                    document.body.style.height = '';
+                };
+                // const removeHash = () => {
+                //     history.pushState('', document.title, window.location.pathname + window.location.search);
+                // };
+
+                animate().then(() => {
+                    updateFocus();
+                    allowScroll();
+                });
+            }
+        };
+
+        window.addEventListener('hashchange', event => handleHashChange(new URL(event.oldURL)));
+        handleHashChange();
+
     };
 });
