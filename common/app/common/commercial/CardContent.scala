@@ -2,7 +2,7 @@ package common.commercial
 
 import conf.switches.Switches
 import model.pressed.PressedContent
-import model.{ContentType, ImageOverride, ImageMedia}
+import model.{ContentType, ImageMedia, ImageOverride}
 import views.support.{CardWithSponsorDataAttributes, ImgSrc, SponsorDataAttributes}
 
 case class CardContent(
@@ -65,7 +65,7 @@ object CardContent {
     )
   }
 
-  def fromContentItem(item: ContentType, clickMacro: Option[String]): CardContent = {
+  def fromContentItem(item: ContentType, clickMacro: Option[String], optImageUrl: Option[String] = None): CardContent = {
     val tags = item.tags
     CardContent(
       icon = {
@@ -77,8 +77,8 @@ object CardContent {
       headline = item.trail.headline,
       kicker = None,
       description = item.fields.trailText,
-      image = item.trail.trailPicture,
-      fallbackImageUrl = item.trail.trailPicture flatMap ImgSrc.getFallbackUrl,
+      image = if (optImageUrl.isDefined) None else item.trail.trailPicture,
+      fallbackImageUrl = optImageUrl orElse (item.trail.trailPicture flatMap ImgSrc.getFallbackUrl),
       targetUrl = {
         val url = item.metadata.url
         clickMacro map { cm => s"$cm$url" } getOrElse url

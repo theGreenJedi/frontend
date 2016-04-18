@@ -27,7 +27,6 @@ object ContentApiOffersController extends Controller with ExecutionContexts with
 
     val optKeyword = request.getParameter("k")
     val optLogo = request.getParameter("l")
-    val optCapiTitle = request.getParameter("ct")
     val optCapiLink = request.getParameter("cl")
     val optCapiAbout = request.getParameter("cal")
     val optCapiButtonText = request.getParameter("clt")
@@ -65,6 +64,8 @@ object ContentApiOffersController extends Controller with ExecutionContexts with
     futureContents.map(_.toList) map {
       case Nil => NoCache(format.nilResult)
       case contents => Cached(componentMaxAge) {
+
+        val optCapiTitle = request.getParameter("ct")
 
         val omnitureId: String = optOmnitureId orElse optCapiTitle getOrElse ""
 
