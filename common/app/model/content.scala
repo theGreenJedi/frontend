@@ -10,10 +10,8 @@ import common.dfp.DfpAgent
 import conf.Configuration
 import conf.switches.Switches.{FacebookShareUseTrailPicFirstSwitch, LongCacheSwitch}
 import cricketPa.CricketTeams
-import layout.ContentWidths.{ImmersiveMedia, BodyMedia, LiveBlogMedia, GalleryMedia}
-import model.content.{Quiz, Atoms}
-import model.liveblog.{LiveBlogDate, BodyBlock}
-import model.liveblog.BodyBlock.{SummaryEvent, KeyEvent}
+import layout.ContentWidths.GalleryMedia
+import model.content.{Atoms, Quiz}
 import model.pressed._
 import ophan.SurgingContentAgent
 import org.joda.time.DateTime
@@ -36,6 +34,30 @@ sealed trait ContentType {
   final def metadata: MetaData = content.metadata
   final def commercial: Commercial = content.commercial
   final def sharelinks: ShareLinks = content.sharelinks
+
+
+
+
+  def brandingFor(edition: Edition): Option[Branding] = {
+
+    val possBranding = tags.tags flatMap { tag =>
+      tag.properties.activeBrandings
+    }
+
+    // section tags highest priority
+
+
+
+    // other tags in sequence
+
+
+    val x = possBranding find { b =>
+      b.isTargeting(trail.webPublicationDate,edition)
+    }
+
+    x
+  }
+
 }
 
 final case class GenericContent(override val content: Content) extends ContentType

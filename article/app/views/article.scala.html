@@ -1,5 +1,9 @@
 @(model: ArticlePage)(implicit request: RequestHeader)
 
+
+*** @model.article.brandingFor(common.Edition(request)) ***
+
+
 @main(model){
 }{
     @fragments.articleBody(model)
