@@ -1,5 +1,6 @@
 package model
 
+import com.gu.contentapi.client.model.v1.Sponsorship
 import common.{Edition, ExecutionContexts, Logging}
 import play.api.libs.json.Json
 
@@ -53,11 +54,12 @@ case class FrontProperties(
   imageWidth: Option[String],
   imageHeight: Option[String],
   isImageDisplayed: Boolean,
-  editorialType: Option[String]
+  editorialType: Option[String],
+  activeBrandings: Option[Seq[Branding]]
 )
 
 object FrontProperties {
   implicit val jsonFormat = Json.format[FrontProperties]
 
-  val empty = FrontProperties(None, None, None, None, false, None)
+  val empty = FrontProperties(None, None, None, None, false, None, None)
 }

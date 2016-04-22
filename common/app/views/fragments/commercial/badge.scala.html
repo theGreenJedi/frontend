@@ -5,7 +5,7 @@
 
 @if(staticBadgesSwitch.isSwitchedOn) {
 
-    @for(branding <- content.branding(Edition(request))) {
+    @for(branding <- content.findBranding(Edition(request))) {
         <div class="ad-slot--paid-for-badge__inner">
             <h3 class="ad-slot--paid-for-badge__header">@branding.label</h3>
             <a href="@branding.sponsorLink" class="ad-slot--paid-for-badge__link">
