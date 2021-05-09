@@ -35,7 +35,7 @@
     "grunt-svgmin": "^2.0.0",
     "grunt-text-replace": "0.3.12",
     "grunt-webfontjson": "0.0.4",
-    "handlebars": "2.0.0",
+    "handlebars": "4.7.7",
     "jasmine-core": "^2.3.2",
     "jit-grunt": "0.9.1",
     "jsonfile": "2.0.0",
